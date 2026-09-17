@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ta" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ketharnath | Video Editor, Designer & Web Creator</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Spline 3D Viewer Script (Mouse Tracking 3D Memoji) -->
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              red: '#FF3B30',
+              redHover: '#E02B20',
+              dark: '#08080A',
+              card: '#121216',
+            }
+          },
+          animation: {
+            'scroll-left': 'scrollLeft 30s linear infinite',
+            'scroll-left-fast': 'scrollLeft 24s linear infinite',
+            'scroll-left-slow': 'scrollLeft 35s linear infinite',
+          },
+          keyframes: {
+            scrollLeft: {
+              '0%': { transform: 'translateX(0)' },
+              '100%': { transform: 'translateX(-50%)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="selection:bg-brand-red selection:text-white pb-32">
+
+  <!-- ==================== TOP NAVIGATION ==================== -->
+  <header class="fixed top-5 inset-x-0 mx-auto max-w-2xl px-4 z-50">
+    <nav class="glass-nav rounded-full px-5 py-2.5 flex items-center justify-between shadow-2xl">
+      <div class="flex items-center gap-3">
+        <span class="w-2.5 h-2.5 rounded-full bg-brand-red animate-pulse"></span>
+        <a href="#" class="font-bold text-sm tracking-tight text-white flex items-center gap-1.5">
+          Ketharnath
+        </a>
+      </div>
+      <div class="flex items-center gap-6 text-xs md:text-sm font-medium text-neutral-400">
+        <a href="#work" class="hover:text-white transition">Work</a>
+        <a href="#contact" class="hover:text-white transition">Contact</a>
+      </div>
+      <a href="mailto:kethar77@gmail.com" class="bg-brand-red hover:bg-brand-redHover text-white text-xs font-semibold px-4 py-1.5 rounded-full transition shadow-lg shadow-brand-red/25">
+        Let's Talk
+      </a>
+    </nav>
+  </header>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="min-h-screen flex flex-col items-center justify-center text-center px-4 relative pt-20">
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-red/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <!-- 3D Interactive Memoji / Avatar -->
+    <div class="relative w-64 h-64 md:w-80 md:h-80 mx-auto z-10">
+      <spline-viewer 
+        url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode" 
+        class="w-full h-full cursor-grab active:cursor-grabbing">
+      </spline-viewer>
+    </div>
+
+    <h1 class="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight z-10 leading-none mb-3">
+      THINK <br />
+      <span class="text-brand-red">CREATIVELY</span>
+    </h1>
+
+    <p class="text-neutral-400 text-sm md:text-base max-w-md mx-auto mb-6 z-10 font-normal leading-relaxed">
+      ஹாய், நான் <span class="text-white font-semibold">Ketharnath</span>. வீடியோ எடிட்டர், கிராபிக் & வெப் கிரியேட்டர்.
+    </p>
+
+    <!-- Social Media Links -->
+    <div class="z-10 flex flex-wrap items-center justify-center gap-3 mb-8">
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/kethar_96?stkn=ZHkzOGR0Z3F1aDlh" target="_blank" rel="noopener noreferrer" class="card-dark hover:border-pink-500/50 hover:text-pink-400 text-xs px-4 py-2 rounded-full flex items-center gap-2 transition">
+        <i data-lucide="instagram" class="w-4 h-4 text-pink-500"></i>
+        <span>@kethar_96</span>
+      </a>
+
+      <!-- LinkedIn -->
+      <a href="https://in.linkedin.com/in/kethar-nath-304153435s" target="_blank" rel="noopener noreferrer" class="card-dark hover:border-blue-500/50 hover:text-blue-400 text-xs px-4 py-2 rounded-full flex items-center gap-2 transition">
+        <i data-lucide="linkedin" class="w-4 h-4 text-blue-500"></i>
+        <span>LinkedIn</span>
+      </a>
+
+      <!-- Email -->
+      <a href="mailto:kethar77@gmail.com" class="card-dark hover:border-brand-red/50 hover:text-brand-red text-xs px-4 py-2 rounded-full flex items-center gap-2 transition">
+        <i data-lucide="mail" class="w-4 h-4 text-brand-red"></i>
+        <span>kethar77@gmail.com</span>
+      </a>
+    </div>
+
+    <!-- CTA Button -->
+    <div class="z-10 flex items-center gap-4">
+      <a href="mailto:kethar77@gmail.com" class="bg-brand-red hover:bg-brand-redHover text-white font-semibold text-sm px-7 py-3 rounded-full transition shadow-xl shadow-brand-red/25 flex items-center gap-2">
+        <span>Book a call with me</span>
+        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- ==================== 3 ROWS PROJECT SHOWCASE ==================== -->
+  <section id="work" class="py-16 w-full overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 mb-10 text-center md:text-left">
+      <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Featured Projects</h2>
+      <p class="text-neutral-400 text-sm mt-1">தானாக இயங்கும் வீடியோக்கள், போட்டோ எடிட்டிங் மற்றும் வெப்சைட் தொகுப்புகள்.</p>
+    </div>
+
+    <!-- ROW 1: VIDEO PROJECTS (Auto-scroll Left & Autoplay) -->
+    <div class="mb-14">
+      <div class="max-w-6xl mx-auto px-6 mb-3 flex items-center gap-2 text-sm font-semibold text-brand-red">
+        <i data-lucide="video" class="w-4 h-4"></i>
+        <span class="uppercase tracking-wider text-xs text-neutral-300">Row 01: Video Editing Projects</span>
+      </div>
+
+      <div class="relative w-full flex overflow-hidden">
+        <div class="flex gap-6 animate-scroll-left pause-on-hover w-max">
+          <div class="w-80 md:w-96 rounded-2xl overflow-hidden card-dark shrink-0">
+            <video class="w-full h-56 object-cover" autoplay loop muted playsinline>
+              <source src="https://assets.mixkit.co/videos/preview/mixkit-set-of-plateaus-seen-from-the-sky-in-a-sunset-26070-large.mp4" type="video/mp4" />
+            </video>
+            <div class="p-4 bg-neutral-900/95 flex justify-between items-center">
+              <div>
+                <h4 class="font-bold text-sm text-white">Cinematic Drone Film</h4>
+                <p class="text-[11px] text-neutral-400">Color Grading & SFX</p>
+              </div>
+              <span class="bg-brand-red/20 text-brand-red text-[10px] font-bold px-2.5 py-1 rounded-full">Reel</span>
+            </div>
+          </div>
+
+          <div class="w-80 md:w-96 rounded-2xl overflow-hidden card-dark shrink-0">
+            <video class="w-full h-56 object-cover" autoplay loop muted playsinline>
+              <source src="https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-man-working-on-a-computer-42861-large.mp4" type="video/mp4" />
+            </video>
+            <div class="p-4 bg-neutral-900/95 flex justify-between items-center">
+              <div>
+                <h4 class="font-bold text-sm text-white">Tech Commercial Ad</h4>
+                <p class="text-[11px] text-neutral-400">Fast Cuts & Motion VFX</p>
+              </div>
+              <span class="bg-brand-red/20 text-brand-red text-[10px] font-bold px-2.5 py-1 rounded-full">Commercial</span>
+            </div>
+          </div>
+
+          <div class="w-80 md:w-96 rounded-2xl overflow-hidden card-dark shrink-0">
+            <video class="w-full h-56 object-cover" autoplay loop muted playsinline>
+              <source src="https://assets.mixkit.co/videos/preview/mixkit-urban-fashion-model-in-the-city-41484-large.mp4" type="video/mp4" />
+            </video>
+            <div class="p-4 bg-neutral-900/95 flex justify-between items-center">
+              <div>
+                <h4 class="font-bold text-sm text-white">Fashion Brand Promo</h4>
+                <p class="text-[11px] text-neutral-400">Beat Sync & Speed Ramp</p>
+              </div>
+              <span class="bg-brand-red/20 text-brand-red text-[10px] font-bold px-2.5 py-1 rounded-full">Promo</span>
+            </div>
+          </div>
+
+          <!-- Repeated for infinite scroll -->
+          <div class="w-80 md:w-96 rounded-2xl overflow-hidden card-dark shrink-0">
+            <video class="w-full h-56 object-cover" autoplay loop muted playsinline>
+              <source src="https://assets.mixkit.co/videos/preview/mixkit-set-of-plateaus-seen-from-the-sky-in-a-sunset-26070-large.mp4" type="video/mp4" />
+            </video>
+            <div class="p-4 bg-neutral-900/95 flex justify-between items-center">
+              <div>
+                <h4 class="font-bold text-sm text-white">Cinematic Drone Film</h4>
+                <p class="text-[11px] text-neutral-400">Color Grading & SFX</p>
+              </div>
+              <span class="bg-brand-red/20 text-brand-red text-[10px] font-bold px-2.5 py-1 rounded-full">Reel</span>
+            </div>
+          </div>
+
+          <div class="w-80 md:w-96 rounded-2xl overflow-hidden card-dark shrink-0">
+            <video class="w-full h-56 object-cover" autoplay loop muted playsinline>
+              <source src="https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-man-working-on-a-computer-42861-large.mp4" type="video/mp4" />
+            </video>
+            <div class="p-4 bg-neutral-900/95 flex justify-between items-center">
+              <div>
+                <h4 class="font-bold text-sm text-white">Tech Commercial Ad</h4>
+                <p class="text-[11px] text-neutral-400">Fast Cuts & Motion VFX</p>
+              </div>
+              <span class="bg-brand-red/20 text-brand-red text-[10px] font-bold px-2.5 py-1 rounded-full">Commercial</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 2: PHOTO EDITING (Left Scroll) -->
+    <div class="mb-14">
+      <div class="max-w-6xl mx-auto px-6 mb-3 flex items-center gap-2 text-sm font-semibold text-brand-red">
+        <i data-lucide="image" class="w-4 h-4"></i>
+        <span class="uppercase tracking-wider text-xs text-neutral-300">Row 02: Photo Retouching & Posters</span>
+      </div>
+
+      <div class="relative w-full flex overflow-hidden">
+        <div class="flex gap-6 animate-scroll-left-fast pause-on-hover w-max">
+          <div class="w-72 md:w-80 rounded-2xl overflow-hidden card-dark shrink-0">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&h=700&fit=crop" class="w-full h-64 object-cover" alt="Retouching" />
+            <div class="p-4 bg-neutral-900/95">
+              <h4 class="font-bold text-sm text-white">Studio Portrait Retouch</h4>
+              <p class="text-[11px] text-neutral-400">Skin smoothing & Color Grading</p>
+            </div>
+          </div>
+
+          <div class="w-72 md:w-80 rounded-2xl overflow-hidden card-dark shrink-0">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=700&fit=crop" class="w-full h-64 object-cover" alt="Product Poster" />
+            <div class="p-4 bg-neutral-900/95">
+              <h4 class="font-bold text-sm text-white">Brand Poster Composite</h4>
+              <p class="text-[11px] text-neutral-400">Photoshop Manipulation</p>
+            </div>
+          </div>
+
+          <div class="w-72 md:w-80 rounded-2xl overflow-hidden card-dark shrink-0">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=700&fit=crop" class="w-full h-64 object-cover" alt="Cyberpunk" />
+            <div class="p-4 bg-neutral-900/95">
+              <h4 class="font-bold text-sm text-white">Cyberpunk Lighting Art</h4>
+              <p class="text-[11px] text-neutral-400">Neon Glow & Matte Painting</p>
+            </div>
+          </div>
+
+          <!-- Repeated for loop -->
+          <div class="w-72 md:w-80 rounded-2xl overflow-hidden card-dark shrink-0">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&h=700&fit=crop" class="w-full h-64 object-cover" alt="Retouching" />
+            <div class="p-4 bg-neutral-900/95">
+              <h4 class="font-bold text-sm text-white">Studio Portrait Retouch</h4>
+              <p class="text-[11px] text-neutral-400">Skin smoothing & Color Grading</p>
+            </div>
+          </div>
+
+          <div class="w-72 md:w-80 rounded-2xl overflow-hidden card-dark shrink-0">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=700&fit=crop" class="w-full h-64 object-cover" alt="Product Poster" />
+            <div class="p-4 bg-neutral-900/95">
+              <h4 class="font-bold text-sm text-white">Brand Poster Composite</h4>
+              <p class="text-[11px] text-neutral-400">Photoshop Manipulation</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 3: WEBSITE DESIGN (Left Scroll) -->
+    <div>
+      <div class="max-w-6xl mx-auto px-6 mb-3 flex items-center gap-2 text-sm font-semibold text-brand-red">
+        <i data-lucide="globe" class="w-4 h-4"></i>
+        <span class="uppercase tracking-wider text-xs text-neutral-300">Row 03: Web Design & Development</span>
+      </div>
+
+      <div class="relative w-full flex overflow-hidden">
+        <div class="flex gap-6 animate-scroll-left-slow pause-on-hover w-max">
+          <div class="w-80 md:w-[420px] rounded-2xl overflow-hidden card-dark shrink-0">
+            <div class="bg-neutral-800/80 px-4 py-2 border-b border-white/5 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+              <span class="ml-2 text-[10px] text-neutral-400 bg-neutral-900 px-3 py-0.5 rounded-md">startup-agency.com</span>
+            </div>
+            <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&h=450&fit=crop" class="w-full h-52 object-cover" alt="Web 1" />
+            <div class="p-4 bg-neutral-900 flex items-center justify-between">
+              <div>
+                <h4 class="font-bold text-sm text-white">Modern Agency Web</h4>
+                <p class="text-[11px] text-neutral-400">React & Tailwind CSS</p>
+              </div>
+              <a href="#" class="text-xs bg-neutral-800 hover:bg-brand-red text-white px-3 py-1.5 rounded-full transition flex items-center gap-1">Live <i data-lucide="external-link" class="w-3 h-3"></i></a>
+            </div>
+          </div>
+
+          <div class="w-80 md:w-[420px] rounded-2xl overflow-hidden card-dark shrink-0">
+            <div class="bg-neutral-800/80 px-4 py-2 border-b border-white/5 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+              <span class="ml-2 text-[10px] text-neutral-400 bg-neutral-900 px-3 py-0.5 rounded-md">ecommerce-brand.store</span>
+            </div>
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=450&fit=crop" class="w-full h-52 object-cover" alt="Web 2" />
+            <div class="p-4 bg-neutral-900 flex items-center justify-between">
+              <div>
+                <h4 class="font-bold text-sm text-white">Premium E-Commerce</h4>
+                <p class="text-[11px] text-neutral-400">Shopify Custom Theme</p>
+              </div>
+              <a href="#" class="text-xs bg-neutral-800 hover:bg-brand-red text-white px-3 py-1.5 rounded-full transition flex items-center gap-1">Live <i data-lucide="external-link" class="w-3 h-3"></i></a>
+            </div>
+          </div>
+
+          <!-- Repeated for loop -->
+          <div class="w-80 md:w-[420px] rounded-2xl overflow-hidden card-dark shrink-0">
+            <div class="bg-neutral-800/80 px-4 py-2 border-b border-white/5 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+              <span class="ml-2 text-[10px] text-neutral-400 bg-neutral-900 px-3 py-0.5 rounded-md">startup-agency.com</span>
+            </div>
+            <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&h=450&fit=crop" class="w-full h-52 object-cover" alt="Web 1" />
+            <div class="p-4 bg-neutral-900 flex items-center justify-between">
+              <div>
+                <h4 class="font-bold text-sm text-white">Modern Agency Web</h4>
+                <p class="text-[11px] text-neutral-400">React & Tailwind CSS</p>
+              </div>
+              <a href="#" class="text-xs bg-neutral-800 hover:bg-brand-red text-white px-3 py-1.5 rounded-full transition flex items-center gap-1">Live <i data-lucide="external-link" class="w-3 h-3"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER & CONTACT ==================== -->
+  <footer id="contact" class="max-w-5xl mx-auto px-6 pt-10">
+    <div class="card-dark rounded-3xl p-8 md:p-14 border border-brand-red/20 relative overflow-hidden text-center md:text-left">
+      <div class="max-w-xl">
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight mb-4">
+          Let's build <br />
+          <span class="text-brand-red">something epic together.</span>
+        </h2>
+        <p class="text-sm text-neutral-400 mb-8">
+          உங்கள் பிராண்டிற்கான வீடியோ எடிட்டிங் அல்லது வெப் பணிகளுக்கு என்னை நேரடியாக தொடர்பு கொள்ளுங்கள்.
+        </p>
+
+        <!-- Direct Action Buttons -->
+        <div class="flex flex-wrap gap-4 items-center justify-center md:justify-start">
+          <a href="mailto:kethar77@gmail.com" class="bg-brand-red hover:bg-brand-redHover text-white font-semibold text-sm px-7 py-3 rounded-full transition shadow-xl shadow-brand-red/25 flex items-center gap-2">
+            <i data-lucide="mail" class="w-4 h-4"></i>
+            <span>kethar77@gmail.com</span>
+          </a>
+          <a href="https://www.instagram.com/kethar_96?stkn=ZHkzOGR0Z3F1aDlh" target="_blank" rel="noopener noreferrer" class="card-dark hover:text-white text-neutral-300 font-semibold text-sm px-5 py-3 rounded-full transition flex items-center gap-2">
+            <i data-lucide="instagram" class="w-4 h-4 text-pink-500"></i>
+            <span>Instagram</span>
+          </a>
+          <a href="https://in.linkedin.com/in/kethar-nath-304153435s" target="_blank" rel="noopener noreferrer" class="card-dark hover:text-white text-neutral-300 font-semibold text-sm px-5 py-3 rounded-full transition flex items-center gap-2">
+            <i data-lucide="linkedin" class="w-4 h-4 text-blue-500"></i>
+            <span>LinkedIn</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-6 border-t border-neutral-800 text-xs text-neutral-500 text-center">
+        © 2026 Ketharnath. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== FLOATING BOTTOM DOCK ==================== -->
+  <aside class="fixed bottom-5 inset-x-0 mx-auto w-fit z-50">
+    <div class="glass-nav px-5 py-2 rounded-full flex items-center gap-4 shadow-2xl">
+      <span class="text-xs text-neutral-300 font-medium">Connect with me</span>
+      <a href="mailto:kethar77@gmail.com" class="bg-brand-red hover:bg-brand-redHover text-white text-xs font-semibold px-4 py-1.5 rounded-full transition flex items-center gap-1.5 shadow-md shadow-brand-red/20">
+        <span>Email me</span>
+        <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Custom Script -->
+  <script src="script.js"></script>
+</body>
+</html>
