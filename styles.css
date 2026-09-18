@@ -1,0 +1,31 @@
+body {
+  background-color: #08080A;
+  color: #F3F4F6;
+  overflow-x: hidden;
+}
+.glass-nav {
+  background: rgba(18, 18, 22, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.card-dark {
+  background: #121216;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+/* Hide scrollbar for drag track */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+/* Draggable grab cursor */
+.interactive-track {
+  cursor: grab;
+  user-select: none;
+}
+.interactive-track.is-dragging {
+  cursor: grabbing;
+}
