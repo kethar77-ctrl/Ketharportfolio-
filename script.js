@@ -1,10 +1,8 @@
 lucide.createIcons();
 
-// Setup each interactive carousel row
 document.querySelectorAll('.interactive-track').forEach((track) => {
   const content = track.querySelector('.track-content');
 
-  // Duplicate items to create infinite looping capability
   const originalCards = Array.from(content.children);
   originalCards.forEach(card => content.appendChild(card.cloneNode(true)));
   originalCards.forEach(card => content.appendChild(card.cloneNode(true)));
@@ -15,7 +13,6 @@ document.querySelectorAll('.interactive-track').forEach((track) => {
   let isHovered = false;
   const speed = parseFloat(track.getAttribute('data-speed')) || 0.8;
 
-  // Mouse drag controls
   track.addEventListener('mousedown', (e) => {
     isDown = true;
     track.classList.add('is-dragging');
@@ -46,16 +43,13 @@ document.querySelectorAll('.interactive-track').forEach((track) => {
     track.scrollLeft = scrollLeft - walk;
   });
 
-  // Touch controls for Mobile & Tablet
   track.addEventListener('touchstart', () => { isHovered = true; }, { passive: true });
   track.addEventListener('touchend', () => { isHovered = false; }, { passive: true });
 
-  // Constant auto-drift engine
   function autoScroll() {
     if (!isDown && !isHovered) {
       track.scrollLeft += speed;
 
-      // Smooth seamless infinite reset
       const halfWidth = content.scrollWidth / 3;
       if (track.scrollLeft >= halfWidth * 2) {
         track.scrollLeft -= halfWidth;

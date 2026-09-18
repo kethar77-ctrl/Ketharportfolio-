@@ -13,7 +13,6 @@ body {
   background: #121216;
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
-/* Hide scrollbar for drag track */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -21,7 +20,6 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-/* Draggable grab cursor */
 .interactive-track {
   cursor: grab;
   user-select: none;
