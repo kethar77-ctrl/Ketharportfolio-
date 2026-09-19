@@ -265,4 +265,105 @@
   }
 
   document.querySelectorAll('.interactive-track').forEach(initTrack);
+
+  /* ------------------------------------------------------------------ *
+   * Scroll progress bar
+   * ------------------------------------------------------------------ */
+  const progressBar = document.getElementById('scroll-progress');
+  if (progressBar) {
+    let progressTicking = false;
+    const updateProgress = () => {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const pct = max > 0 ? Math.min(1, Math.max(0, doc.scrollTop / max)) : 0;
+      progressBar.style.transform = `scaleX(${pct})`;
+      progressTicking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (progressTicking) return;
+      progressTicking = true;
+      requestAnimationFrame(updateProgress);
+    }, { passive: true });
+    updateProgress();
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Back-to-top button
+   * ------------------------------------------------------------------ */
+  const backToTop = document.getElementById('back-to-top');
+  if (backToTop) {
+    const showPast = () => window.innerHeight * 0.8;
+    const syncBackToTop = () => {
+      backToTop.dataset.visible = String(window.scrollY > showPast());
+    };
+    window.addEventListener('scroll', syncBackToTop, { passive: true });
+    syncBackToTop();
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+    });
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Memoji avatar: gentle pointer-reactive tilt (desktop/mouse only)
+   * ------------------------------------------------------------------ */
+  const memojiWrap = document.getElementById('memoji-wrap');
+  if (memojiWrap && window.matchMedia('(pointer: fine)').matches) {
+    let tiltRaf = 0;
+    const MAX_TILT_DEG = 9;
+
+    const applyTilt = (e) => {
+      const rect = memojiWrap.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width - 0.5;
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
+      memojiWrap.style.setProperty('--tilt-y', `${(px * MAX_TILT_DEG).toFixed(2)}deg`);
+      memojiWrap.style.setProperty('--tilt-x', `${(-py * MAX_TILT_DEG).toFixed(2)}deg`);
+    };
+
+    memojiWrap.addEventListener('pointerenter', () => memojiWrap.classList.add('is-tilting'));
+    memojiWrap.addEventListener('pointermove', (e) => {
+      cancelAnimationFrame(tiltRaf);
+      tiltRaf = requestAnimationFrame(() => applyTilt(e));
+    });
+    memojiWrap.addEventListener('pointerleave', () => {
+      memojiWrap.classList.remove('is-tilting');
+      memojiWrap.style.setProperty('--tilt-x', '0deg');
+      memojiWrap.style.setProperty('--tilt-y', '0deg');
+    });
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Animated stat counters: count up once when scrolled into view
+   * ------------------------------------------------------------------ */
+  const statNums = document.querySelectorAll('.stat-num');
+  if (statNums.length) {
+    const runCount = (el) => {
+      const target = parseInt(el.dataset.target, 10) || 0;
+      if (reduceMotion.matches) {
+        el.textContent = String(target);
+        return;
+      }
+      const duration = 1200;
+      const start = performance.now();
+      const tick = (now) => {
+        const p = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
+        el.textContent = String(Math.round(target * eased));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+
+    if ('IntersectionObserver' in window) {
+      const statObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          runCount(entry.target);
+          statObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.6 });
+      statNums.forEach((el) => statObserver.observe(el));
+    } else {
+      statNums.forEach(runCount);
+    }
+  }
 })();

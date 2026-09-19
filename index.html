@@ -18,9 +18,6 @@
   <!-- Tailwind CSS CDN (pinned so a new release can't change your layout) -->
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 
-  <!-- Spline 3D Viewer Script (Mouse Tracking 3D Memoji) -->
-  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
-
   <!-- Google Fonts: Plus Jakarta Sans -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
@@ -41,7 +38,16 @@
               dark: '#08080A',
               card: '#121216',
             }
-          }
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-14px)' },
+            },
+          },
+          animation: {
+            float: 'float 6s ease-in-out infinite',
+          },
         }
       }
     }
@@ -57,7 +63,12 @@
   </a>
 
   <!-- ==================== TOP NAVIGATION ==================== -->
-  <header class="fixed top-5 inset-x-0 mx-auto max-w-2xl px-4 z-50">
+  <!-- Scroll progress: fills left-to-right as the page is read -->
+  <div class="fixed top-0 inset-x-0 h-[3px] z-50 bg-white/5" aria-hidden="true">
+    <div id="scroll-progress" class="h-full bg-brand-red origin-left" style="transform: scaleX(0)"></div>
+  </div>
+
+  <header class="fixed top-5 inset-x-0 mx-auto max-w-3xl px-4 z-50">
     <nav aria-label="Primary" class="glass-nav rounded-full px-4 sm:px-5 py-2.5 flex items-center justify-between shadow-2xl">
       <div class="flex items-center gap-3">
         <span aria-hidden="true" class="w-2.5 h-2.5 rounded-full bg-brand-red motion-safe:animate-pulse"></span>
@@ -65,8 +76,15 @@
           Ketharnath
         </a>
       </div>
-      <div class="flex items-center gap-4 sm:gap-6 text-xs md:text-sm font-medium text-neutral-400">
+      <div class="hidden md:flex items-center gap-5 lg:gap-6 text-xs md:text-sm font-medium text-neutral-400">
         <a href="#about" class="hover:text-white transition">About</a>
+        <a href="#services" class="hover:text-white transition">Services</a>
+        <a href="#work" class="hover:text-white transition">Work</a>
+        <a href="#testimonials" class="hover:text-white transition">Reviews</a>
+        <a href="#contact" class="hover:text-white transition">Contact</a>
+      </div>
+      <!-- Compact link set for small screens, still readable, still uncluttered -->
+      <div class="flex md:hidden items-center gap-4 text-xs font-medium text-neutral-400">
         <a href="#work" class="hover:text-white transition">Work</a>
         <a href="#contact" class="hover:text-white transition">Contact</a>
       </div>
@@ -83,12 +101,18 @@
     <section class="min-h-svh flex flex-col items-center justify-center text-center px-4 relative pt-20">
       <div aria-hidden="true" class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-red/10 rounded-full blur-3xl pointer-events-none"></div>
 
-      <!-- 3D Interactive Memoji / Avatar (decorative) -->
-      <div class="relative w-64 h-64 md:w-80 md:h-80 mx-auto z-10" aria-hidden="true">
-        <spline-viewer
-          url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-          class="w-full h-full cursor-grab active:cursor-grabbing">
-        </spline-viewer>
+      <!-- Memoji Avatar: cut-out 3D portrait, floats gently and tilts toward the pointer -->
+      <div id="memoji-wrap" class="relative w-56 h-56 md:w-72 md:h-72 mx-auto z-10 mb-2" style="perspective: 900px;">
+        <div aria-hidden="true" class="absolute inset-0 scale-90 rounded-full bg-brand-red/25 blur-3xl"></div>
+        <img
+          id="memoji"
+          src="memoji.webp"
+          alt="3D illustrated portrait of Ketharnath wearing sunglasses"
+          width="772" height="900"
+          class="relative w-full h-full object-contain object-bottom select-none motion-safe:animate-float drop-shadow-[0_25px_45px_rgba(255,59,48,0.35)]"
+          draggable="false"
+          fetchpriority="high"
+        />
       </div>
 
       <h1 class="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight z-10 leading-none mb-3">
@@ -182,6 +206,126 @@
         </div>
 
       </div>
+    </section>
+
+    <!-- ==================== STATS STRIP ==================== -->
+    <section aria-label="Career highlights" class="max-w-6xl mx-auto px-6 pb-4">
+      <dl class="card-dark rounded-3xl px-6 py-8 md:py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <dt class="sr-only">Years of experience</dt>
+          <dd class="text-3xl md:text-5xl font-extrabold text-white"><span class="stat-num" data-target="5">0</span>+</dd>
+          <p class="mt-1 text-[11px] md:text-xs text-neutral-400 uppercase tracking-wider">Years experience</p>
+        </div>
+        <div>
+          <dt class="sr-only">Projects delivered</dt>
+          <dd class="text-3xl md:text-5xl font-extrabold text-white"><span class="stat-num" data-target="120">0</span>+</dd>
+          <p class="mt-1 text-[11px] md:text-xs text-neutral-400 uppercase tracking-wider">Projects delivered</p>
+        </div>
+        <div>
+          <dt class="sr-only">Happy clients</dt>
+          <dd class="text-3xl md:text-5xl font-extrabold text-white"><span class="stat-num" data-target="60">0</span>+</dd>
+          <p class="mt-1 text-[11px] md:text-xs text-neutral-400 uppercase tracking-wider">Happy clients</p>
+        </div>
+        <div>
+          <dt class="sr-only">Hours of footage edited</dt>
+          <dd class="text-3xl md:text-5xl font-extrabold text-white"><span class="stat-num" data-target="800">0</span>+</dd>
+          <p class="mt-1 text-[11px] md:text-xs text-neutral-400 uppercase tracking-wider">Hours edited</p>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ==================== SERVICES ==================== -->
+    <section id="services" class="max-w-6xl mx-auto px-6 py-20">
+      <div class="mb-10 max-w-xl">
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-3">
+          What I can <span class="text-brand-red">do for you.</span>
+        </h2>
+        <p class="text-neutral-400 text-sm md:text-base leading-relaxed">
+          Three disciplines, one workflow — I move fluidly between the camera, the compositor and the browser so nothing gets lost in translation between them.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <article class="card-dark rounded-2xl p-7 hover:border-brand-red/40 transition">
+          <div class="w-11 h-11 rounded-xl bg-brand-red/15 flex items-center justify-center mb-5">
+            <i data-lucide="clapperboard" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-bold text-white mb-2">Video editing & SFX</h3>
+          <p class="text-sm text-neutral-400 leading-relaxed mb-4">
+            Cinematic reels, ads and social cuts — paced edits, color grading and sound design built to hold attention.
+          </p>
+          <ul class="flex flex-wrap gap-1.5 text-[11px] text-neutral-400">
+            <li class="bg-neutral-800 border border-white/5 rounded-md px-2 py-1">Color grading</li>
+            <li class="bg-neutral-800 border border-white/5 rounded-md px-2 py-1">Motion graphics</li>
+            <li class="bg-neutral-800 border border-white/5 rounded-md px-2 py-1">Sound design</li>
+          </ul>
+        </article>
+
+        <article class="card-dark rounded-2xl p-7 hover:border-brand-red/40 transition">
+          <div class="w-11 h-11 rounded-xl bg-brand-red/15 flex items-center justify-center mb-5">
+            <i data-lucide="image" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-bold text-white mb-2">Photo manipulation</h3>
+          <p class="text-sm text-neutral-400 leading-relaxed mb-4">
+            Retouching, compositing and matte painting that keeps light, shadow and grain believable at any scale.
+          </p>
+          <ul class="flex flex-wrap gap-1.5 text-[11px] text-neutral-400">
+            <li class="bg-neutral-800 border border-white/5 rounded-md px-2 py-1">Retouching</li>
+            <li class="bg-neutral-800 border border-white/5 rounded-md px-2 py-1">Compositing</li>
+            <li class="bg-neutral-800 border border-white/5 rounded-md px-2 py-1">Masking</li>
+          </ul>
+        </article>
+
+        <article class="card-dark rounded-2xl p-7 hover:border-brand-red/40 transition">
+          <div class="w-11 h-11 rounded-xl bg-brand-red/15 flex items-center justify-center mb-5">
+            <i data-lucide="globe" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-bold text-white mb-2">Web design & build</h3>
+          <p class="text-sm text-neutral-400 leading-relaxed mb-4">
+            Interactive, responsive sites that carry the same visual polish from the poster into the browser.
+          </p>
+          <ul class="flex flex-wrap gap-1.5 text-[11px] text-neutral-400">
+            <li class="bg-neutral-800 border border-white/5 rounded-md px-2 py-1">Tailwind CSS</li>
+            <li class="bg-neutral-800 border border-white/5 rounded-md px-2 py-1">JavaScript</li>
+            <li class="bg-neutral-800 border border-white/5 rounded-md px-2 py-1">Animation</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ==================== PROCESS ==================== -->
+    <section aria-labelledby="process-heading" class="max-w-6xl mx-auto px-6 pb-20">
+      <div class="mb-10 max-w-xl">
+        <h2 id="process-heading" class="text-3xl md:text-5xl font-extrabold tracking-tight mb-3">
+          How a project <span class="text-brand-red">comes together.</span>
+        </h2>
+        <p class="text-neutral-400 text-sm md:text-base leading-relaxed">
+          Four steps, always in this order — it keeps scope clear and revisions cheap.
+        </p>
+      </div>
+
+      <ol class="grid grid-cols-1 md:grid-cols-4 gap-5">
+        <li class="card-dark rounded-2xl p-6 relative">
+          <span class="text-4xl font-black text-brand-red/25">01</span>
+          <h3 class="font-bold text-white mt-3 mb-1.5">Discovery call</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed">Goals, references and constraints, in a 20-minute call.</p>
+        </li>
+        <li class="card-dark rounded-2xl p-6 relative">
+          <span class="text-4xl font-black text-brand-red/25">02</span>
+          <h3 class="font-bold text-white mt-3 mb-1.5">Draft & direction</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed">A first cut or concept for you to react to early, not at the end.</p>
+        </li>
+        <li class="card-dark rounded-2xl p-6 relative">
+          <span class="text-4xl font-black text-brand-red/25">03</span>
+          <h3 class="font-bold text-white mt-3 mb-1.5">Refine together</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed">Focused revision rounds until the details feel right.</p>
+        </li>
+        <li class="card-dark rounded-2xl p-6 relative">
+          <span class="text-4xl font-black text-brand-red/25">04</span>
+          <h3 class="font-bold text-white mt-3 mb-1.5">Final delivery</h3>
+          <p class="text-xs text-neutral-400 leading-relaxed">Export-ready files, handed off in the formats you need.</p>
+        </li>
+      </ol>
     </section>
 
     <!-- ==================== 3 ROWS INTERACTIVE SHOWCASE ==================== -->
@@ -337,6 +481,62 @@
       </div>
     </section>
 
+    <!-- ==================== TESTIMONIALS ==================== -->
+    <section id="testimonials" class="py-4 pb-20 w-full overflow-hidden">
+      <div class="max-w-6xl mx-auto px-6 mb-8">
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Client feedback</h2>
+        <p class="text-neutral-400 text-sm mt-1">A few words from people I've worked with. Hover to pause, or drag to browse.</p>
+      </div>
+
+      <div class="interactive-track overflow-x-auto no-scrollbar w-full flex py-2" data-speed="0.6" role="region" aria-label="Client testimonials" tabindex="0">
+        <div class="track-content flex gap-6 px-6 shrink-0">
+          <figure class="w-80 md:w-96 rounded-2xl card-dark shrink-0 p-6 flex flex-col">
+            <i data-lucide="quote" class="w-6 h-6 text-brand-red mb-4" aria-hidden="true"></i>
+            <blockquote class="text-sm text-neutral-300 leading-relaxed flex-1">
+              Ketharnath turned three days of raw drone footage into a two-minute film that felt like a movie trailer. Fast turnaround and genuinely thoughtful edits.
+            </blockquote>
+            <figcaption class="mt-5 pt-4 border-t border-white/5 text-xs">
+              <span class="block font-bold text-white">Arjun Mehta</span>
+              <span class="text-neutral-500">Founder, Skyline Drone Co.</span>
+            </figcaption>
+          </figure>
+
+          <figure class="w-80 md:w-96 rounded-2xl card-dark shrink-0 p-6 flex flex-col">
+            <i data-lucide="quote" class="w-6 h-6 text-brand-red mb-4" aria-hidden="true"></i>
+            <blockquote class="text-sm text-neutral-300 leading-relaxed flex-1">
+              The product retouching work looked shoot-ready straight out of the first pass. Clean masking, honest color — no over-processed look.
+            </blockquote>
+            <figcaption class="mt-5 pt-4 border-t border-white/5 text-xs">
+              <span class="block font-bold text-white">Priya Raman</span>
+              <span class="text-neutral-500">Creative Lead, Studio Norte</span>
+            </figcaption>
+          </figure>
+
+          <figure class="w-80 md:w-96 rounded-2xl card-dark shrink-0 p-6 flex flex-col">
+            <i data-lucide="quote" class="w-6 h-6 text-brand-red mb-4" aria-hidden="true"></i>
+            <blockquote class="text-sm text-neutral-300 leading-relaxed flex-1">
+              He rebuilt our storefront with the same eye he brings to video — every section felt intentional, and load times actually improved.
+            </blockquote>
+            <figcaption class="mt-5 pt-4 border-t border-white/5 text-xs">
+              <span class="block font-bold text-white">Daniel Fernandes</span>
+              <span class="text-neutral-500">Owner, Fernandes Apparel</span>
+            </figcaption>
+          </figure>
+
+          <figure class="w-80 md:w-96 rounded-2xl card-dark shrink-0 p-6 flex flex-col">
+            <i data-lucide="quote" class="w-6 h-6 text-brand-red mb-4" aria-hidden="true"></i>
+            <blockquote class="text-sm text-neutral-300 leading-relaxed flex-1">
+              Communicative, punctual, and genuinely invested in getting the brand feel right rather than just delivering a generic edit.
+            </blockquote>
+            <figcaption class="mt-5 pt-4 border-t border-white/5 text-xs">
+              <span class="block font-bold text-white">Sana Iyer</span>
+              <span class="text-neutral-500">Marketing Manager, Loopwave</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- ==================== FOOTER & CONTACT ==================== -->
@@ -377,13 +577,24 @@
   <!-- ==================== FLOATING BOTTOM DOCK ==================== -->
   <aside aria-label="Quick contact" class="fixed bottom-5 inset-x-0 mx-auto w-fit z-50">
     <div class="glass-nav px-5 py-2 rounded-full flex items-center gap-4 shadow-2xl">
-      <span class="text-xs text-neutral-300 font-medium">Connect with me</span>
+      <span class="text-xs text-neutral-300 font-medium hidden sm:inline">Connect with me</span>
       <a href="mailto:kethar77@gmail.com" class="bg-brand-red hover:bg-brand-redHover text-white text-xs font-semibold px-4 py-1.5 rounded-full transition flex items-center gap-1.5 shadow-md shadow-brand-red/20">
         <span>Email me</span>
         <i data-lucide="arrow-up-right" class="w-3.5 h-3.5" aria-hidden="true"></i>
       </a>
     </div>
   </aside>
+
+  <!-- Back to top: appears once the hero has scrolled past -->
+  <button
+    id="back-to-top"
+    type="button"
+    aria-label="Back to top"
+    data-visible="false"
+    class="back-to-top fixed bottom-24 right-5 z-50 glass-nav w-11 h-11 rounded-full flex items-center justify-center shadow-2xl hover:border-brand-red/50 transition"
+  >
+    <i data-lucide="arrow-up" class="w-4 h-4 text-white" aria-hidden="true"></i>
+  </button>
 
   <script src="script.js" defer></script>
 </body>

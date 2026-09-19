@@ -80,3 +80,43 @@ body {
 .motion-toggle[data-paused="false"] .when-paused {
   display: none;
 }
+
+/* ---------- Scroll progress bar ---------- */
+#scroll-progress {
+  transition: transform 80ms linear;
+  will-change: transform;
+}
+
+/* ---------- Memoji avatar: pointer-reactive tilt ---------- */
+#memoji-wrap img {
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+#memoji-wrap.is-tilting img {
+  transition: transform 80ms linear;
+  animation: none; /* the pointer is in control while actively tilting */
+}
+@media (prefers-reduced-motion: reduce) {
+  #memoji-wrap img {
+    animation: none !important;
+  }
+}
+
+/* ---------- Back to top button ---------- */
+.back-to-top {
+  opacity: 0;
+  transform: translateY(8px) scale(0.9);
+  pointer-events: none;
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+.back-to-top[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* ---------- Animated counters: reserve space so layout doesn't shift ---------- */
+.stat-num {
+  font-variant-numeric: tabular-nums;
+}
