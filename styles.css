@@ -1,18 +1,55 @@
-body {
-  background-color: #08080A;
-  color: #F3F4F6;
-  overflow-x: hidden;
+:root {
+  --bg: #08080A;
+  --card: #121216;
+  --line: rgba(255, 255, 255, 0.08);
+  --brand: #FF3B30;
+  color-scheme: dark;
 }
+
+html {
+  /* Keeps anchor targets clear of the fixed nav */
+  scroll-padding-top: 6rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background-color: var(--bg);
+  color: #F3F4F6;
+  overflow-x: hidden; /* fallback */
+  overflow-x: clip;   /* doesn't break position: sticky */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+}
+
 .glass-nav {
   background: rgba(18, 18, 22, 0.8);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--line);
 }
+
+/* Browsers without backdrop-filter get a more opaque bar so text stays readable */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-nav {
+    background: rgba(18, 18, 22, 0.96);
+  }
+}
+
 .card-dark {
-  background: #121216;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--card);
+  border: 1px solid var(--line);
 }
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -20,10 +57,26 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* ---------- Carousel tracks ---------- */
 .interactive-track {
   cursor: grab;
   user-select: none;
+  -webkit-user-select: none;
+  overscroll-behavior-x: contain; /* swiping a row shouldn't trigger browser back/forward */
+}
+.interactive-track:focus-visible {
+  outline-offset: -3px;
 }
 .interactive-track.is-dragging {
   cursor: grabbing;
+}
+.interactive-track.is-dragging a {
+  pointer-events: none;
+}
+
+/* ---------- Motion toggle ---------- */
+.motion-toggle[data-paused="true"] .when-running,
+.motion-toggle[data-paused="false"] .when-paused {
+  display: none;
 }

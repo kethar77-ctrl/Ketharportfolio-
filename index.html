@@ -1,30 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ketharnath | Video Editor, Designer & Web Creator</title>
+  <meta name="description" content="Ketharnath is a video editor, photo manipulation artist and web designer turning ideas into engaging digital experiences." />
+  <meta name="theme-color" content="#08080A" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Ketharnath | Video Editor, Designer & Web Creator" />
+  <meta property="og:description" content="Cinematic video production, photo compositing and interactive web design." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='9' fill='%23FF3B30'/%3E%3C/svg%3E" />
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Tailwind CSS CDN (pinned so a new release can't change your layout) -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 
   <!-- Spline 3D Viewer Script (Mouse Tracking 3D Memoji) -->
   <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
 
   <!-- Google Fonts: Plus Jakarta Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Lucide Icons (pinned; defer keeps execution order with script.js) -->
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js" defer></script>
 
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
           },
           colors: {
             brand: {
@@ -44,279 +52,296 @@
 
 <body class="selection:bg-brand-red selection:text-white pb-32">
 
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:bg-brand-red focus:text-white focus:text-sm focus:font-semibold focus:px-4 focus:py-2 focus:rounded-full">
+    Skip to content
+  </a>
+
   <!-- ==================== TOP NAVIGATION ==================== -->
   <header class="fixed top-5 inset-x-0 mx-auto max-w-2xl px-4 z-50">
-    <nav class="glass-nav rounded-full px-5 py-2.5 flex items-center justify-between shadow-2xl">
+    <nav aria-label="Primary" class="glass-nav rounded-full px-4 sm:px-5 py-2.5 flex items-center justify-between shadow-2xl">
       <div class="flex items-center gap-3">
-        <span class="w-2.5 h-2.5 rounded-full bg-brand-red animate-pulse"></span>
+        <span aria-hidden="true" class="w-2.5 h-2.5 rounded-full bg-brand-red motion-safe:animate-pulse"></span>
         <a href="#" class="font-bold text-sm tracking-tight text-white flex items-center gap-1.5">
           Ketharnath
         </a>
       </div>
-      <div class="flex items-center gap-6 text-xs md:text-sm font-medium text-neutral-400">
+      <div class="flex items-center gap-4 sm:gap-6 text-xs md:text-sm font-medium text-neutral-400">
         <a href="#about" class="hover:text-white transition">About</a>
         <a href="#work" class="hover:text-white transition">Work</a>
         <a href="#contact" class="hover:text-white transition">Contact</a>
       </div>
-      <a href="mailto:kethar77@gmail.com" class="bg-brand-red hover:bg-brand-redHover text-white text-xs font-semibold px-4 py-1.5 rounded-full transition shadow-lg shadow-brand-red/25">
+      <!-- Hidden on very small screens where it wouldn't fit; the bottom dock has an email button there -->
+      <a href="mailto:kethar77@gmail.com" class="hidden sm:inline-block bg-brand-red hover:bg-brand-redHover text-white text-xs font-semibold px-4 py-1.5 rounded-full transition shadow-lg shadow-brand-red/25">
         Let's Talk
       </a>
     </nav>
   </header>
 
-  <!-- ==================== HERO SECTION ==================== -->
-  <section class="min-h-screen flex flex-col items-center justify-center text-center px-4 relative pt-20">
-    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-red/10 rounded-full blur-3xl pointer-events-none"></div>
+  <main id="main">
 
-    <!-- 3D Interactive Memoji / Avatar -->
-    <div class="relative w-64 h-64 md:w-80 md:h-80 mx-auto z-10">
-      <spline-viewer 
-        url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode" 
-        class="w-full h-full cursor-grab active:cursor-grabbing">
-      </spline-viewer>
-    </div>
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="min-h-svh flex flex-col items-center justify-center text-center px-4 relative pt-20">
+      <div aria-hidden="true" class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-red/10 rounded-full blur-3xl pointer-events-none"></div>
 
-    <h1 class="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight z-10 leading-none mb-3">
-      THINK <br />
-      <span class="text-brand-red">CREATIVELY</span>
-    </h1>
-
-    <p class="text-neutral-400 text-sm md:text-base max-w-md mx-auto mb-6 z-10 font-normal leading-relaxed">
-      Hi, I'm <span class="text-white font-semibold">Ketharnath</span>. A video editor, photo manipulation artist & web designer turning ideas into engaging digital experiences.
-    </p>
-
-    <!-- Social Media Links -->
-    <div class="z-10 flex flex-wrap items-center justify-center gap-3 mb-8">
-      <a href="https://www.instagram.com/kethar_96?stkn=ZHkzOGR0Z3F1aDlh" target="_blank" rel="noopener noreferrer" class="card-dark hover:border-pink-500/50 hover:text-pink-400 text-xs px-4 py-2 rounded-full flex items-center gap-2 transition">
-        <i data-lucide="instagram" class="w-4 h-4 text-pink-500"></i>
-        <span>@kethar_96</span>
-      </a>
-
-      <a href="https://in.linkedin.com/in/kethar-nath-304153435s" target="_blank" rel="noopener noreferrer" class="card-dark hover:border-blue-500/50 hover:text-blue-400 text-xs px-4 py-2 rounded-full flex items-center gap-2 transition">
-        <i data-lucide="linkedin" class="w-4 h-4 text-blue-500"></i>
-        <span>LinkedIn</span>
-      </a>
-
-      <a href="mailto:kethar77@gmail.com" class="card-dark hover:border-brand-red/50 hover:text-brand-red text-xs px-4 py-2 rounded-full flex items-center gap-2 transition">
-        <i data-lucide="mail" class="w-4 h-4 text-brand-red"></i>
-        <span>kethar77@gmail.com</span>
-      </a>
-    </div>
-
-    <!-- CTA Button -->
-    <div class="z-10 flex items-center gap-4">
-      <a href="mailto:kethar77@gmail.com" class="bg-brand-red hover:bg-brand-redHover text-white font-semibold text-sm px-7 py-3 rounded-full transition shadow-xl shadow-brand-red/25 flex items-center gap-2">
-        <span>Book a discovery call</span>
-        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
-      </a>
-    </div>
-  </section>
-
-  <!-- ==================== SELF INTRO / ABOUT SECTION ==================== -->
-  <section id="about" class="max-w-6xl mx-auto px-6 py-20">
-    <div class="card-dark rounded-3xl p-8 md:p-14 border border-white/5 relative overflow-hidden">
-      
-      <div class="mb-10">
-        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">
-          Designing experiences <br />
-          <span class="text-brand-red">that make sense.</span>
-        </h2>
+      <!-- 3D Interactive Memoji / Avatar (decorative) -->
+      <div class="relative w-64 h-64 md:w-80 md:h-80 mx-auto z-10" aria-hidden="true">
+        <spline-viewer
+          url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+          class="w-full h-full cursor-grab active:cursor-grabbing">
+        </spline-viewer>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-        <!-- Photo Container with Bold Red Gradient Background -->
-        <div class="lg:col-span-5 flex flex-col items-center">
-          <div class="w-full max-w-sm aspect-[4/5] rounded-2xl overflow-hidden bg-gradient-to-br from-red-600 via-brand-red to-red-950 p-2 shadow-2xl relative border border-white/10 group">
-            <img 
-              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&fit=crop" 
-              alt="Ketharnath" 
-              class="w-full h-full object-cover rounded-xl grayscale group-hover:grayscale-0 transition duration-500" 
-            />
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight z-10 leading-none mb-3">
+        THINK <br />
+        <span class="text-brand-red">CREATIVELY</span>
+      </h1>
+
+      <p class="text-neutral-400 text-sm md:text-base max-w-md mx-auto mb-6 z-10 font-normal leading-relaxed">
+        Hi, I'm <span class="text-white font-semibold">Ketharnath</span>. A video editor, photo manipulation artist & web designer turning ideas into engaging digital experiences.
+      </p>
+
+      <!-- Social Media Links -->
+      <div class="z-10 flex flex-wrap items-center justify-center gap-3 mb-8">
+        <a href="https://www.instagram.com/kethar_96/" target="_blank" rel="noopener noreferrer" class="card-dark hover:border-pink-500/50 hover:text-pink-400 text-xs px-4 py-2 rounded-full flex items-center gap-2 transition">
+          <i data-lucide="instagram" class="w-4 h-4 text-pink-500" aria-hidden="true"></i>
+          <span>@kethar_96</span>
+        </a>
+
+        <a href="https://in.linkedin.com/in/kethar-nath-304153435s" target="_blank" rel="noopener noreferrer" class="card-dark hover:border-blue-500/50 hover:text-blue-400 text-xs px-4 py-2 rounded-full flex items-center gap-2 transition">
+          <i data-lucide="linkedin" class="w-4 h-4 text-blue-500" aria-hidden="true"></i>
+          <span>LinkedIn</span>
+        </a>
+
+        <a href="mailto:kethar77@gmail.com" class="card-dark hover:border-brand-red/50 hover:text-brand-red text-xs px-4 py-2 rounded-full flex items-center gap-2 transition">
+          <i data-lucide="mail" class="w-4 h-4 text-brand-red" aria-hidden="true"></i>
+          <span>kethar77@gmail.com</span>
+        </a>
+      </div>
+
+      <!-- CTA Button -->
+      <div class="z-10 flex items-center gap-4">
+        <a href="mailto:kethar77@gmail.com" class="bg-brand-red hover:bg-brand-redHover text-white font-semibold text-sm px-7 py-3 rounded-full transition shadow-xl shadow-brand-red/25 flex items-center gap-2">
+          <span>Book a discovery call</span>
+          <i data-lucide="arrow-up-right" class="w-4 h-4" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- ==================== SELF INTRO / ABOUT SECTION ==================== -->
+    <section id="about" class="max-w-6xl mx-auto px-6 py-20">
+      <div class="card-dark rounded-3xl p-8 md:p-14 relative overflow-hidden">
+
+        <div class="mb-10">
+          <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">
+            Designing experiences <br />
+            <span class="text-brand-red">that make sense.</span>
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <!-- Photo Container with Bold Red Gradient Background -->
+          <div class="lg:col-span-5 flex flex-col items-center">
+            <div class="w-full max-w-sm aspect-[4/5] rounded-2xl overflow-hidden bg-gradient-to-br from-red-600 via-brand-red to-red-950 p-2 shadow-2xl relative border border-white/10 group">
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&fit=crop"
+                alt="Portrait of Ketharnath"
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover rounded-xl grayscale group-hover:grayscale-0 [@media(hover:none)]:grayscale-0 transition duration-500"
+              />
+            </div>
+            <div class="mt-4 text-center">
+              <h3 class="text-lg font-bold text-white tracking-wide">Ketharnath</h3>
+              <p class="text-xs text-brand-red font-medium">Video Editor & Visual Communicator</p>
+            </div>
           </div>
-          <div class="mt-4 text-center">
-            <h3 class="text-lg font-bold text-white tracking-wide">Ketharnath</h3>
-            <p class="text-xs text-brand-red font-medium">Video Editor & Visual Communicator</p>
+
+          <!-- Self Intro Paragraphs -->
+          <div class="lg:col-span-7 space-y-5 text-sm md:text-base text-neutral-300 font-light leading-relaxed">
+            <p>
+              I started my journey with creative design and visual arts, exploring visual layouts and creative storytelling ideas. Over the past years, I've worked across video editing, compositing, and modern digital interfaces, gradually understanding how everything connects and works together.
+            </p>
+            <p>
+              With time, my focus shifted from just making things look attractive to communicating ideas clearly. That's when I began to see myself more as a brand visualizer and communicator, not just a standard editor.
+            </p>
+            <p>
+              Now, I integrate web design and interactive visuals to understand how modern experiences work in practice. It's helping me think beyond static graphics and focus deeply on how people interact, experience, and engage with content.
+            </p>
+            <p class="pt-2 text-white font-normal">
+              My goal is to continue evolving by blending cinematic video production with interactive web experiences to craft work that feels clear, useful, and meaningful.
+            </p>
+
+            <!-- Skills Badges -->
+            <ul class="pt-4 flex flex-wrap gap-2 text-xs">
+              <li class="bg-neutral-800 text-neutral-300 px-3 py-1.5 rounded-lg border border-white/5">Video Editing & SFX</li>
+              <li class="bg-neutral-800 text-neutral-300 px-3 py-1.5 rounded-lg border border-white/5">Photo Manipulation</li>
+              <li class="bg-neutral-800 text-neutral-300 px-3 py-1.5 rounded-lg border border-white/5">Color Grading</li>
+              <li class="bg-neutral-800 text-neutral-300 px-3 py-1.5 rounded-lg border border-white/5">Web Development</li>
+            </ul>
           </div>
         </div>
 
-        <!-- Self Intro Paragraphs (Exact content matched to reference) -->
-        <div class="lg:col-span-7 space-y-5 text-sm md:text-base text-neutral-300 font-light leading-relaxed">
-          <p>
-            I started my journey with creative design and visual arts, exploring visual layouts and creative storytelling ideas. Over the past years, I've worked across video editing, compositing, and modern digital interfaces, gradually understanding how everything connects and works together.
-          </p>
-          <p>
-            With time, my focus shifted from just making things look attractive to communicating ideas clearly. That's when I began to see myself more as a brand visualizer and communicator, not just a standard editor.
-          </p>
-          <p>
-            Now, I integrate web design and interactive visuals to understand how modern experiences work in practice. It's helping me think beyond static graphics and focus deeply on how people interact, experience, and engage with content.
-          </p>
-          <p class="pt-2 text-white font-normal">
-            My goal is to continue evolving by blending cinematic video production with interactive web experiences to craft work that feels clear, useful, and meaningful.
-          </p>
+      </div>
+    </section>
 
-          <!-- Skills Badges -->
-          <div class="pt-4 flex flex-wrap gap-2 text-xs">
-            <span class="bg-neutral-800 text-neutral-300 px-3 py-1.5 rounded-lg border border-white/5">Video Editing & SFX</span>
-            <span class="bg-neutral-800 text-neutral-300 px-3 py-1.5 rounded-lg border border-white/5">Photo Manipulation</span>
-            <span class="bg-neutral-800 text-neutral-300 px-3 py-1.5 rounded-lg border border-white/5">Color Grading</span>
-            <span class="bg-neutral-800 text-neutral-300 px-3 py-1.5 rounded-lg border border-white/5">Web Development</span>
+    <!-- ==================== 3 ROWS INTERACTIVE SHOWCASE ==================== -->
+    <section id="work" class="py-16 w-full overflow-hidden">
+      <div class="max-w-6xl mx-auto px-6 mb-10 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Featured Projects</h2>
+          <p class="text-neutral-400 text-sm mt-1">Each row scrolls on its own. Hover to pause, or drag and swipe to browse.</p>
+        </div>
+        <button id="motion-toggle" type="button" class="motion-toggle card-dark hover:border-brand-red/50 text-xs text-neutral-300 hover:text-white px-4 py-2 rounded-full transition self-center md:self-auto">
+          <span class="when-running flex items-center gap-2">
+            <i data-lucide="pause" class="w-4 h-4 text-brand-red" aria-hidden="true"></i>
+            <span>Pause motion</span>
+          </span>
+          <span class="when-paused flex items-center gap-2">
+            <i data-lucide="play" class="w-4 h-4 text-brand-red" aria-hidden="true"></i>
+            <span>Play motion</span>
+          </span>
+        </button>
+      </div>
+
+      <!-- ROW 1: VIDEO EDITING -->
+      <div class="mb-14">
+        <h3 id="row-video-label" class="max-w-6xl mx-auto px-6 mb-3 flex items-center gap-2 text-sm font-semibold text-brand-red">
+          <i data-lucide="video" class="w-4 h-4" aria-hidden="true"></i>
+          <span class="uppercase tracking-wider text-xs text-neutral-300">Video editing</span>
+        </h3>
+
+        <div class="interactive-track overflow-x-auto no-scrollbar w-full flex py-2" data-speed="0.8" role="region" aria-labelledby="row-video-label" tabindex="0">
+          <div class="track-content flex gap-6 px-6 shrink-0">
+            <article class="w-80 md:w-96 rounded-2xl overflow-hidden card-dark shrink-0">
+              <video class="w-full h-56 object-cover pointer-events-none" muted loop playsinline preload="metadata" disablepictureinpicture aria-hidden="true" tabindex="-1">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-set-of-plateaus-seen-from-the-sky-in-a-sunset-26070-large.mp4" type="video/mp4" />
+              </video>
+              <div class="p-4 bg-neutral-900/95 flex justify-between items-center">
+                <div>
+                  <h4 class="font-bold text-sm text-white">Cinematic Drone Film</h4>
+                  <p class="text-[11px] text-neutral-400">Color Grading & Sound Design</p>
+                </div>
+                <span class="bg-brand-red/20 text-brand-red text-[10px] font-bold px-2.5 py-1 rounded-full">Reel</span>
+              </div>
+            </article>
+
+            <article class="w-80 md:w-96 rounded-2xl overflow-hidden card-dark shrink-0">
+              <video class="w-full h-56 object-cover pointer-events-none" muted loop playsinline preload="metadata" disablepictureinpicture aria-hidden="true" tabindex="-1">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-man-working-on-a-computer-42861-large.mp4" type="video/mp4" />
+              </video>
+              <div class="p-4 bg-neutral-900/95 flex justify-between items-center">
+                <div>
+                  <h4 class="font-bold text-sm text-white">Tech Commercial Ad</h4>
+                  <p class="text-[11px] text-neutral-400">Paced Cuts & Motion Graphics</p>
+                </div>
+                <span class="bg-brand-red/20 text-brand-red text-[10px] font-bold px-2.5 py-1 rounded-full">Commercial</span>
+              </div>
+            </article>
+
+            <article class="w-80 md:w-96 rounded-2xl overflow-hidden card-dark shrink-0">
+              <video class="w-full h-56 object-cover pointer-events-none" muted loop playsinline preload="metadata" disablepictureinpicture aria-hidden="true" tabindex="-1">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-urban-fashion-model-in-the-city-41484-large.mp4" type="video/mp4" />
+              </video>
+              <div class="p-4 bg-neutral-900/95 flex justify-between items-center">
+                <div>
+                  <h4 class="font-bold text-sm text-white">Streetwear Visual Reel</h4>
+                  <p class="text-[11px] text-neutral-400">Beat Transitions & Effects</p>
+                </div>
+                <span class="bg-brand-red/20 text-brand-red text-[10px] font-bold px-2.5 py-1 rounded-full">Promo</span>
+              </div>
+            </article>
           </div>
         </div>
       </div>
 
-    </div>
-  </section>
+      <!-- ROW 2: PHOTO EDITING -->
+      <div class="mb-14">
+        <h3 id="row-photo-label" class="max-w-6xl mx-auto px-6 mb-3 flex items-center gap-2 text-sm font-semibold text-brand-red">
+          <i data-lucide="image" class="w-4 h-4" aria-hidden="true"></i>
+          <span class="uppercase tracking-wider text-xs text-neutral-300">Photo retouching & compositing</span>
+        </h3>
 
-  <!-- ==================== 3 ROWS INTERACTIVE SHOWCASE ==================== -->
-  <section id="work" class="py-16 w-full overflow-hidden">
-    <div class="max-w-6xl mx-auto px-6 mb-10 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div class="interactive-track overflow-x-auto no-scrollbar w-full flex py-2" data-speed="1.0" role="region" aria-labelledby="row-photo-label" tabindex="0">
+          <div class="track-content flex gap-6 px-6 shrink-0">
+            <article class="w-72 md:w-80 rounded-2xl overflow-hidden card-dark shrink-0">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&h=700&fit=crop" loading="lazy" decoding="async" draggable="false" class="w-full h-64 object-cover pointer-events-none" alt="Studio portrait after skin retouching and color grading" />
+              <div class="p-4 bg-neutral-900/95">
+                <h4 class="font-bold text-sm text-white">Studio Portrait Retouch</h4>
+                <p class="text-[11px] text-neutral-400">Skin smoothing & Color Grading</p>
+              </div>
+            </article>
+
+            <article class="w-72 md:w-80 rounded-2xl overflow-hidden card-dark shrink-0">
+              <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=700&fit=crop" loading="lazy" decoding="async" draggable="false" class="w-full h-64 object-cover pointer-events-none" alt="Commercial product poster with composited lighting" />
+              <div class="p-4 bg-neutral-900/95">
+                <h4 class="font-bold text-sm text-white">Commercial Product Poster</h4>
+                <p class="text-[11px] text-neutral-400">Lighting Integration & Masking</p>
+              </div>
+            </article>
+
+            <article class="w-72 md:w-80 rounded-2xl overflow-hidden card-dark shrink-0">
+              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=700&fit=crop" loading="lazy" decoding="async" draggable="false" class="w-full h-64 object-cover pointer-events-none" alt="Cyberpunk matte painting with neon bloom" />
+              <div class="p-4 bg-neutral-900/95">
+                <h4 class="font-bold text-sm text-white">Cyberpunk Matte Concept</h4>
+                <p class="text-[11px] text-neutral-400">Atmospheric Neon Bloom</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROW 3: WEBSITE DESIGN -->
       <div>
-        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Featured Projects</h2>
-        <p class="text-neutral-400 text-sm mt-1">Autoplaying showcases. Click, drag, or swipe any row to inspect.</p>
-      </div>
-      <div class="text-xs text-neutral-500 flex items-center gap-2 justify-center">
-        <i data-lucide="move-horizontal" class="w-4 h-4 text-brand-red"></i>
-        <span>Drag & scroll enabled</span>
-      </div>
-    </div>
+        <h3 id="row-web-label" class="max-w-6xl mx-auto px-6 mb-3 flex items-center gap-2 text-sm font-semibold text-brand-red">
+          <i data-lucide="globe" class="w-4 h-4" aria-hidden="true"></i>
+          <span class="uppercase tracking-wider text-xs text-neutral-300">Web design & development</span>
+        </h3>
 
-    <!-- ROW 1: VIDEO EDITING -->
-    <div class="mb-14">
-      <div class="max-w-6xl mx-auto px-6 mb-3 flex items-center gap-2 text-sm font-semibold text-brand-red">
-        <i data-lucide="video" class="w-4 h-4"></i>
-        <span class="uppercase tracking-wider text-xs text-neutral-300">Row 01: Video Editing Projects</span>
-      </div>
-
-      <div class="interactive-track overflow-x-scroll no-scrollbar w-full flex py-2" data-speed="0.8">
-        <div class="track-content flex gap-6 px-6 shrink-0">
-          <div class="w-80 md:w-96 rounded-2xl overflow-hidden card-dark shrink-0 pointer-events-auto">
-            <video class="w-full h-56 object-cover pointer-events-none" autoplay loop muted playsinline>
-              <source src="https://assets.mixkit.co/videos/preview/mixkit-set-of-plateaus-seen-from-the-sky-in-a-sunset-26070-large.mp4" type="video/mp4" />
-            </video>
-            <div class="p-4 bg-neutral-900/95 flex justify-between items-center">
-              <div>
-                <h4 class="font-bold text-sm text-white">Cinematic Drone Film</h4>
-                <p class="text-[11px] text-neutral-400">Color Grading & Sound Design</p>
+        <div class="interactive-track overflow-x-auto no-scrollbar w-full flex py-2" data-speed="0.7" role="region" aria-labelledby="row-web-label" tabindex="0">
+          <div class="track-content flex gap-6 px-6 shrink-0">
+            <article class="w-80 md:w-[420px] rounded-2xl overflow-hidden card-dark shrink-0">
+              <div aria-hidden="true" class="bg-neutral-800/80 px-4 py-2 border-b border-white/5 flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+                <span class="ml-2 text-[10px] text-neutral-400 bg-neutral-900 px-3 py-0.5 rounded-md">startup-agency.com</span>
               </div>
-              <span class="bg-brand-red/20 text-brand-red text-[10px] font-bold px-2.5 py-1 rounded-full">Reel</span>
-            </div>
-          </div>
-
-          <div class="w-80 md:w-96 rounded-2xl overflow-hidden card-dark shrink-0 pointer-events-auto">
-            <video class="w-full h-56 object-cover pointer-events-none" autoplay loop muted playsinline>
-              <source src="https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-man-working-on-a-computer-42861-large.mp4" type="video/mp4" />
-            </video>
-            <div class="p-4 bg-neutral-900/95 flex justify-between items-center">
-              <div>
-                <h4 class="font-bold text-sm text-white">Tech Commercial Ad</h4>
-                <p class="text-[11px] text-neutral-400">Paced Cuts & Motion Graphics</p>
+              <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&h=450&fit=crop" loading="lazy" decoding="async" draggable="false" class="w-full h-52 object-cover pointer-events-none" alt="Homepage of the modern agency website" />
+              <div class="p-4 bg-neutral-900 flex items-center justify-between">
+                <div>
+                  <h4 class="font-bold text-sm text-white">Modern Agency Web Platform</h4>
+                  <p class="text-[11px] text-neutral-400">Tailwind CSS & JavaScript</p>
+                </div>
+                <a href="#" aria-label="Live demo of Modern Agency Web Platform" class="text-xs bg-neutral-800 hover:bg-brand-red text-white px-3 py-1.5 rounded-full transition flex items-center gap-1">Live Demo <i data-lucide="external-link" class="w-3 h-3" aria-hidden="true"></i></a>
               </div>
-              <span class="bg-brand-red/20 text-brand-red text-[10px] font-bold px-2.5 py-1 rounded-full">Commercial</span>
-            </div>
-          </div>
+            </article>
 
-          <div class="w-80 md:w-96 rounded-2xl overflow-hidden card-dark shrink-0 pointer-events-auto">
-            <video class="w-full h-56 object-cover pointer-events-none" autoplay loop muted playsinline>
-              <source src="https://assets.mixkit.co/videos/preview/mixkit-urban-fashion-model-in-the-city-41484-large.mp4" type="video/mp4" />
-            </video>
-            <div class="p-4 bg-neutral-900/95 flex justify-between items-center">
-              <div>
-                <h4 class="font-bold text-sm text-white">Streetwear Visual Reel</h4>
-                <p class="text-[11px] text-neutral-400">Beat Transitions & Effects</p>
+            <article class="w-80 md:w-[420px] rounded-2xl overflow-hidden card-dark shrink-0">
+              <div aria-hidden="true" class="bg-neutral-800/80 px-4 py-2 border-b border-white/5 flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+                <span class="ml-2 text-[10px] text-neutral-400 bg-neutral-900 px-3 py-0.5 rounded-md">ecommerce-brand.store</span>
               </div>
-              <span class="bg-brand-red/20 text-brand-red text-[10px] font-bold px-2.5 py-1 rounded-full">Promo</span>
-            </div>
+              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=450&fit=crop" loading="lazy" decoding="async" draggable="false" class="w-full h-52 object-cover pointer-events-none" alt="Storefront of the e-commerce brand website" />
+              <div class="p-4 bg-neutral-900 flex items-center justify-between">
+                <div>
+                  <h4 class="font-bold text-sm text-white">E-Commerce Brand Experience</h4>
+                  <p class="text-[11px] text-neutral-400">Shopify Custom Build & Animation</p>
+                </div>
+                <a href="#" aria-label="Live demo of E-Commerce Brand Experience" class="text-xs bg-neutral-800 hover:bg-brand-red text-white px-3 py-1.5 rounded-full transition flex items-center gap-1">Live Demo <i data-lucide="external-link" class="w-3 h-3" aria-hidden="true"></i></a>
+              </div>
+            </article>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- ROW 2: PHOTO EDITING -->
-    <div class="mb-14">
-      <div class="max-w-6xl mx-auto px-6 mb-3 flex items-center gap-2 text-sm font-semibold text-brand-red">
-        <i data-lucide="image" class="w-4 h-4"></i>
-        <span class="uppercase tracking-wider text-xs text-neutral-300">Row 02: Photo Retouching & Compositing</span>
-      </div>
-
-      <div class="interactive-track overflow-x-scroll no-scrollbar w-full flex py-2" data-speed="1.0">
-        <div class="track-content flex gap-6 px-6 shrink-0">
-          <div class="w-72 md:w-80 rounded-2xl overflow-hidden card-dark shrink-0 pointer-events-auto">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&h=700&fit=crop" class="w-full h-64 object-cover pointer-events-none" alt="Studio Portrait" />
-            <div class="p-4 bg-neutral-900/95">
-              <h4 class="font-bold text-sm text-white">Studio Portrait Retouch</h4>
-              <p class="text-[11px] text-neutral-400">Skin smoothing & Color Grading</p>
-            </div>
-          </div>
-
-          <div class="w-72 md:w-80 rounded-2xl overflow-hidden card-dark shrink-0 pointer-events-auto">
-            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=700&fit=crop" class="w-full h-64 object-cover pointer-events-none" alt="Product Poster" />
-            <div class="p-4 bg-neutral-900/95">
-              <h4 class="font-bold text-sm text-white">Commercial Product Poster</h4>
-              <p class="text-[11px] text-neutral-400">Lighting Integration & Masking</p>
-            </div>
-          </div>
-
-          <div class="w-72 md:w-80 rounded-2xl overflow-hidden card-dark shrink-0 pointer-events-auto">
-            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=700&fit=crop" class="w-full h-64 object-cover pointer-events-none" alt="Cyberpunk" />
-            <div class="p-4 bg-neutral-900/95">
-              <h4 class="font-bold text-sm text-white">Cyberpunk Matte Concept</h4>
-              <p class="text-[11px] text-neutral-400">Atmospheric Neon Bloom</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ROW 3: WEBSITE DESIGN -->
-    <div>
-      <div class="max-w-6xl mx-auto px-6 mb-3 flex items-center gap-2 text-sm font-semibold text-brand-red">
-        <i data-lucide="globe" class="w-4 h-4"></i>
-        <span class="uppercase tracking-wider text-xs text-neutral-300">Row 03: Web Design & Development</span>
-      </div>
-
-      <div class="interactive-track overflow-x-scroll no-scrollbar w-full flex py-2" data-speed="0.7">
-        <div class="track-content flex gap-6 px-6 shrink-0">
-          <div class="w-80 md:w-[420px] rounded-2xl overflow-hidden card-dark shrink-0 pointer-events-auto">
-            <div class="bg-neutral-800/80 px-4 py-2 border-b border-white/5 flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
-              <span class="ml-2 text-[10px] text-neutral-400 bg-neutral-900 px-3 py-0.5 rounded-md">startup-agency.com</span>
-            </div>
-            <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&h=450&fit=crop" class="w-full h-52 object-cover pointer-events-none" alt="Agency Website" />
-            <div class="p-4 bg-neutral-900 flex items-center justify-between">
-              <div>
-                <h4 class="font-bold text-sm text-white">Modern Agency Web Platform</h4>
-                <p class="text-[11px] text-neutral-400">Tailwind CSS & JavaScript</p>
-              </div>
-              <a href="#" class="text-xs bg-neutral-800 hover:bg-brand-red text-white px-3 py-1.5 rounded-full transition flex items-center gap-1">Live Demo <i data-lucide="external-link" class="w-3 h-3"></i></a>
-            </div>
-          </div>
-
-          <div class="w-80 md:w-[420px] rounded-2xl overflow-hidden card-dark shrink-0 pointer-events-auto">
-            <div class="bg-neutral-800/80 px-4 py-2 border-b border-white/5 flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
-              <span class="ml-2 text-[10px] text-neutral-400 bg-neutral-900 px-3 py-0.5 rounded-md">ecommerce-brand.store</span>
-            </div>
-            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=450&fit=crop" class="w-full h-52 object-cover pointer-events-none" alt="E-Commerce Store" />
-            <div class="p-4 bg-neutral-900 flex items-center justify-between">
-              <div>
-                <h4 class="font-bold text-sm text-white">E-Commerce Brand Experience</h4>
-                <p class="text-[11px] text-neutral-400">Shopify Custom Build & Animation</p>
-              </div>
-              <a href="#" class="text-xs bg-neutral-800 hover:bg-brand-red text-white px-3 py-1.5 rounded-full transition flex items-center gap-1">Live Demo <i data-lucide="external-link" class="w-3 h-3"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  </main>
 
   <!-- ==================== FOOTER & CONTACT ==================== -->
   <footer id="contact" class="max-w-5xl mx-auto px-6 pt-10">
-    <div class="card-dark rounded-3xl p-8 md:p-14 border border-brand-red/20 relative overflow-hidden text-center md:text-left">
+    <div class="card-dark rounded-3xl p-8 md:p-14 border-brand-red/20 relative overflow-hidden text-center md:text-left">
       <div class="max-w-xl">
         <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight mb-4">
           Let's build <br />
@@ -329,37 +354,37 @@
         <!-- Direct Social & Email Actions -->
         <div class="flex flex-wrap gap-4 items-center justify-center md:justify-start">
           <a href="mailto:kethar77@gmail.com" class="bg-brand-red hover:bg-brand-redHover text-white font-semibold text-sm px-7 py-3 rounded-full transition shadow-xl shadow-brand-red/25 flex items-center gap-2">
-            <i data-lucide="mail" class="w-4 h-4"></i>
+            <i data-lucide="mail" class="w-4 h-4" aria-hidden="true"></i>
             <span>kethar77@gmail.com</span>
           </a>
-          <a href="https://www.instagram.com/kethar_96?stkn=ZHkzOGR0Z3F1aDlh" target="_blank" rel="noopener noreferrer" class="card-dark hover:text-white text-neutral-300 font-semibold text-sm px-5 py-3 rounded-full transition flex items-center gap-2">
-            <i data-lucide="instagram" class="w-4 h-4 text-pink-500"></i>
+          <a href="https://www.instagram.com/kethar_96/" target="_blank" rel="noopener noreferrer" class="card-dark hover:text-white text-neutral-300 font-semibold text-sm px-5 py-3 rounded-full transition flex items-center gap-2">
+            <i data-lucide="instagram" class="w-4 h-4 text-pink-500" aria-hidden="true"></i>
             <span>Instagram</span>
           </a>
           <a href="https://in.linkedin.com/in/kethar-nath-304153435s" target="_blank" rel="noopener noreferrer" class="card-dark hover:text-white text-neutral-300 font-semibold text-sm px-5 py-3 rounded-full transition flex items-center gap-2">
-            <i data-lucide="linkedin" class="w-4 h-4 text-blue-500"></i>
+            <i data-lucide="linkedin" class="w-4 h-4 text-blue-500" aria-hidden="true"></i>
             <span>LinkedIn</span>
           </a>
         </div>
       </div>
 
       <div class="mt-12 pt-6 border-t border-neutral-800 text-xs text-neutral-500 text-center">
-        © 2026 Ketharnath. All rights reserved.
+        © <span id="year">2026</span> Ketharnath. All rights reserved.
       </div>
     </div>
   </footer>
 
   <!-- ==================== FLOATING BOTTOM DOCK ==================== -->
-  <aside class="fixed bottom-5 inset-x-0 mx-auto w-fit z-50">
+  <aside aria-label="Quick contact" class="fixed bottom-5 inset-x-0 mx-auto w-fit z-50">
     <div class="glass-nav px-5 py-2 rounded-full flex items-center gap-4 shadow-2xl">
       <span class="text-xs text-neutral-300 font-medium">Connect with me</span>
       <a href="mailto:kethar77@gmail.com" class="bg-brand-red hover:bg-brand-redHover text-white text-xs font-semibold px-4 py-1.5 rounded-full transition flex items-center gap-1.5 shadow-md shadow-brand-red/20">
         <span>Email me</span>
-        <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+        <i data-lucide="arrow-up-right" class="w-3.5 h-3.5" aria-hidden="true"></i>
       </a>
     </div>
   </aside>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
