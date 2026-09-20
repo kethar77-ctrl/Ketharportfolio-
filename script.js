@@ -366,4 +366,107 @@
       statNums.forEach(runCount);
     }
   }
+
+  /* ------------------------------------------------------------------ *
+   * Scroll-reveal: fade + rise elements in once as they enter view
+   * ------------------------------------------------------------------ */
+  const revealEls = document.querySelectorAll('.reveal');
+  if (revealEls.length) {
+    if (reduceMotion.matches || !('IntersectionObserver' in window)) {
+      revealEls.forEach((el) => el.classList.add('is-visible'));
+    } else {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+      revealEls.forEach((el) => revealObserver.observe(el));
+    }
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Skill proficiency bars: animate fill once when scrolled into view
+   * ------------------------------------------------------------------ */
+  const skillBars = document.querySelectorAll('.skill-bar');
+  if (skillBars.length) {
+    const fillSkillBar = (bar) => {
+      const pct = parseInt(bar.dataset.percent, 10) || 0;
+      const fill = bar.querySelector('.skill-bar-fill');
+      const value = bar.querySelector('.skill-bar-value');
+      requestAnimationFrame(() => {
+        if (fill) fill.style.width = `${pct}%`;
+        if (value) value.textContent = `${pct}%`;
+      });
+    };
+    if ('IntersectionObserver' in window) {
+      const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          fillSkillBar(entry.target);
+          skillObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.4 });
+      skillBars.forEach((bar) => skillObserver.observe(bar));
+    } else {
+      skillBars.forEach(fillSkillBar);
+    }
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Hero cursor spotlight: soft glow that follows the pointer (desktop only)
+   * ------------------------------------------------------------------ */
+  const heroSection = document.getElementById('hero');
+  const heroSpotlight = document.getElementById('hero-spotlight');
+  if (heroSection && heroSpotlight && window.matchMedia('(pointer: fine)').matches && !reduceMotion.matches) {
+    let spotlightRaf = 0;
+    const moveSpotlight = (e) => {
+      const rect = heroSection.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      heroSpotlight.style.setProperty('--x', `${x}%`);
+      heroSpotlight.style.setProperty('--y', `${y}%`);
+    };
+    heroSection.addEventListener('pointerenter', () => heroSpotlight.classList.add('is-active'));
+    heroSection.addEventListener('pointermove', (e) => {
+      cancelAnimationFrame(spotlightRaf);
+      spotlightRaf = requestAnimationFrame(() => moveSpotlight(e));
+    });
+    heroSection.addEventListener('pointerleave', () => heroSpotlight.classList.remove('is-active'));
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Copy email to clipboard, with brief inline confirmation
+   * ------------------------------------------------------------------ */
+  const copyEmailBtn = document.getElementById('copy-email-btn');
+  if (copyEmailBtn) {
+    const feedback = document.getElementById('copy-email-feedback');
+    let feedbackTimer = 0;
+
+    const showFeedback = () => {
+      if (!feedback) return;
+      feedback.style.opacity = '1';
+      clearTimeout(feedbackTimer);
+      feedbackTimer = setTimeout(() => { feedback.style.opacity = '0'; }, 1600);
+    };
+
+    copyEmailBtn.addEventListener('click', async () => {
+      const email = copyEmailBtn.dataset.email || '';
+      try {
+        await navigator.clipboard.writeText(email);
+      } catch {
+        // Clipboard API unavailable or blocked: fall back to a hidden textarea + execCommand
+        const temp = document.createElement('textarea');
+        temp.value = email;
+        temp.style.position = 'fixed';
+        temp.style.opacity = '0';
+        document.body.appendChild(temp);
+        temp.select();
+        try { document.execCommand('copy'); } catch { /* no-op: nothing more we can do */ }
+        document.body.removeChild(temp);
+      }
+      showFeedback();
+    });
+  }
 })();

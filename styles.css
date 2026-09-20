@@ -3,6 +3,7 @@
   --card: #121216;
   --line: rgba(255, 255, 255, 0.08);
   --brand: #FF3B30;
+  --gold: #C9A96E;
   color-scheme: dark;
 }
 
@@ -24,6 +25,13 @@ body {
   overflow-x: clip;   /* doesn't break position: sticky */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* A quiet vignette plus a whisper of film grain for material depth on the flat black */
+  background-image:
+    radial-gradient(ellipse 90% 60% at 50% -8%, rgba(255, 59, 48, 0.06), transparent 60%),
+    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(0, 0, 0, 0.5), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-attachment: fixed, fixed, fixed;
 }
 
 :focus-visible {
@@ -46,8 +54,9 @@ body {
 }
 
 .card-dark {
-  background: var(--card);
+  background: linear-gradient(180deg, #16161c 0%, var(--card) 100%);
   border: 1px solid var(--line);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 28px 48px -32px rgba(0, 0, 0, 0.7);
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -56,6 +65,54 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* ---------- Editorial kicker labels (small italic serif, sits above headings) ---------- */
+.kicker {
+  font-family: 'Fraunces', ui-serif, Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 0.01em;
+}
+
+/* ---------- Card hover lift: a quiet, tactile response for interactive cards ---------- */
+.hover-lift {
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), border-color 320ms ease;
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 59, 48, 0.35);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hover-lift {
+    transition: none;
+  }
+  .hover-lift:hover {
+    transform: none;
+  }
+}
+
+/* ---------- Primary button: a glossy, gradient-lit surface instead of a flat fill ---------- */
+.btn-primary {
+  background: linear-gradient(180deg, #ff5147 0%, var(--brand) 55%, #e22a20 100%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25) inset, 0 12px 28px -14px rgba(255, 59, 48, 0.5);
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 280ms ease;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 16px 34px -14px rgba(255, 59, 48, 0.6);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary {
+    transition: none;
+  }
+  .btn-primary:hover {
+    transform: none;
+  }
 }
 
 /* ---------- Carousel tracks ---------- */
@@ -81,8 +138,9 @@ body {
   display: none;
 }
 
-/* ---------- Scroll progress bar ---------- */
+/* ---------- Scroll progress bar: a quiet red-to-gold sweep ---------- */
 #scroll-progress {
+  background: linear-gradient(90deg, var(--brand), var(--gold));
   transition: transform 80ms linear;
   will-change: transform;
 }
@@ -116,7 +174,82 @@ body {
   pointer-events: auto;
 }
 
-/* ---------- Animated counters: reserve space so layout doesn't shift ---------- */
+/* ---------- Animated stat counters: reserve space so layout doesn't shift ---------- */
 .stat-num {
   font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Availability status dot: a slow breathing light, not a SaaS "ping" ---------- */
+.status-dot {
+  animation: statusPulse 2.6s ease-in-out infinite;
+}
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .status-dot {
+    animation: none;
+  }
+}
+
+/* ---------- Hero cursor spotlight ---------- */
+#hero-spotlight {
+  background: radial-gradient(560px circle at var(--x, 50%) var(--y, 15%), rgba(255, 59, 48, 0.10), transparent 70%);
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+#hero-spotlight.is-active {
+  opacity: 1;
+}
+
+/* ---------- Scroll-reveal: quiet, short-throw fade so it reads as polish, not spectacle ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1), transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- Skill proficiency bars ---------- */
+.skill-bar-fill {
+  width: 0%;
+  transition: width 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .skill-bar-fill {
+    transition: none;
+  }
+}
+
+/* ---------- FAQ accordion ---------- */
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item summary::marker {
+  content: '';
+}
+.faq-item[open] summary i[data-lucide="chevron-down"] {
+  transform: rotate(180deg);
+  color: var(--gold);
+}
+.faq-item summary i[data-lucide="chevron-down"] {
+  transition: transform 250ms ease, color 250ms ease;
+}
+
+/* ---------- Copy-email feedback tooltip ---------- */
+#copy-email-feedback {
+  opacity: 0;
+  transition: opacity 200ms ease;
 }

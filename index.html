@@ -18,8 +18,8 @@
   <!-- Tailwind CSS CDN (pinned so a new release can't change your layout) -->
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 
-  <!-- Google Fonts: Plus Jakarta Sans -->
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- Google Fonts: Plus Jakarta Sans (UI/body) + Fraunces (editorial serif accents) -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet" />
 
   <!-- Lucide Icons (pinned; defer keeps execution order with script.js) -->
   <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js" defer></script>
@@ -30,6 +30,7 @@
         extend: {
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            serif: ['"Fraunces"', 'ui-serif', 'Georgia', 'serif'],
           },
           colors: {
             brand: {
@@ -37,6 +38,7 @@
               redHover: '#E02B20',
               dark: '#08080A',
               card: '#121216',
+              gold: '#C9A96E',
             }
           },
           keyframes: {
@@ -71,8 +73,8 @@
   <header class="fixed top-5 inset-x-0 mx-auto max-w-3xl px-4 z-50">
     <nav aria-label="Primary" class="glass-nav rounded-full px-4 sm:px-5 py-2.5 flex items-center justify-between shadow-2xl">
       <div class="flex items-center gap-3">
-        <span aria-hidden="true" class="w-2.5 h-2.5 rounded-full bg-brand-red motion-safe:animate-pulse"></span>
-        <a href="#" class="font-bold text-sm tracking-tight text-white flex items-center gap-1.5">
+        <span aria-hidden="true" class="w-2.5 h-2.5 rounded-full bg-brand-red status-dot"></span>
+        <a href="#" class="font-serif italic text-base tracking-tight text-white flex items-center gap-1.5">
           Ketharnath
         </a>
       </div>
@@ -80,7 +82,7 @@
         <a href="#about" class="hover:text-white transition">About</a>
         <a href="#services" class="hover:text-white transition">Services</a>
         <a href="#work" class="hover:text-white transition">Work</a>
-        <a href="#testimonials" class="hover:text-white transition">Reviews</a>
+        <a href="#faq" class="hover:text-white transition">FAQ</a>
         <a href="#contact" class="hover:text-white transition">Contact</a>
       </div>
       <!-- Compact link set for small screens, still readable, still uncluttered -->
@@ -89,7 +91,7 @@
         <a href="#contact" class="hover:text-white transition">Contact</a>
       </div>
       <!-- Hidden on very small screens where it wouldn't fit; the bottom dock has an email button there -->
-      <a href="mailto:kethar77@gmail.com" class="hidden sm:inline-block bg-brand-red hover:bg-brand-redHover text-white text-xs font-semibold px-4 py-1.5 rounded-full transition shadow-lg shadow-brand-red/25">
+      <a href="mailto:kethar77@gmail.com" class="btn-primary hidden sm:inline-block text-white text-xs font-semibold px-4 py-1.5 rounded-full">
         Let's Talk
       </a>
     </nav>
@@ -98,8 +100,16 @@
   <main id="main">
 
     <!-- ==================== HERO SECTION ==================== -->
-    <section class="min-h-svh flex flex-col items-center justify-center text-center px-4 relative pt-20">
+    <section id="hero" class="min-h-svh flex flex-col items-center justify-center text-center px-4 relative pt-20 overflow-hidden">
       <div aria-hidden="true" class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-red/10 rounded-full blur-3xl pointer-events-none"></div>
+      <!-- Cursor-reactive ambient glow (desktop only; JS sets --x/--y on pointer move) -->
+      <div id="hero-spotlight" aria-hidden="true" class="absolute inset-0 pointer-events-none z-0"></div>
+
+      <!-- Availability badge -->
+      <div class="z-10 mb-6 inline-flex items-center gap-2 card-dark rounded-full pl-3 pr-4 py-1.5 text-xs text-neutral-300">
+        <span class="status-dot inline-flex rounded-full h-2 w-2 bg-brand-gold" aria-hidden="true"></span>
+        Available for select engagements
+      </div>
 
       <!-- Layered headline + memoji: the bold "CREATIVELY" line sits behind the portrait -->
       <h1 class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase tracking-tight z-0 leading-[0.82] select-none">
@@ -145,7 +155,7 @@
 
       <!-- CTA Button -->
       <div class="z-10 flex items-center gap-4">
-        <a href="mailto:kethar77@gmail.com" class="bg-brand-red hover:bg-brand-redHover text-white font-semibold text-sm px-7 py-3 rounded-full transition shadow-xl shadow-brand-red/25 flex items-center gap-2">
+        <a href="mailto:kethar77@gmail.com" class="btn-primary text-white font-semibold text-sm px-7 py-3 rounded-full flex items-center gap-2">
           <span>Book a discovery call</span>
           <i data-lucide="arrow-up-right" class="w-4 h-4" aria-hidden="true"></i>
         </a>
@@ -153,10 +163,11 @@
     </section>
 
     <!-- ==================== SELF INTRO / ABOUT SECTION ==================== -->
-    <section id="about" class="max-w-6xl mx-auto px-6 py-20">
-      <div class="card-dark rounded-3xl p-8 md:p-14 relative overflow-hidden">
+    <section id="about" class="max-w-6xl mx-auto px-6 py-24">
+      <div class="reveal card-dark rounded-3xl p-8 md:p-14 relative overflow-hidden">
 
         <div class="mb-10">
+          <p class="kicker text-sm mb-3">About</p>
           <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">
             Designing experiences <br />
             <span class="text-brand-red">that make sense.</span>
@@ -203,6 +214,46 @@
               <li class="bg-neutral-800 text-neutral-300 px-3 py-1.5 rounded-lg border border-white/5">Color Grading</li>
               <li class="bg-neutral-800 text-neutral-300 px-3 py-1.5 rounded-lg border border-white/5">Web Development</li>
             </ul>
+
+            <!-- Proficiency: animated fill bars, triggered once when scrolled into view -->
+            <div class="pt-6 space-y-4">
+              <div class="skill-bar" data-percent="95">
+                <div class="flex items-center justify-between text-xs mb-1.5">
+                  <span class="text-neutral-300 font-medium">Video Editing</span>
+                  <span class="skill-bar-value text-neutral-500">0%</span>
+                </div>
+                <div class="h-1.5 rounded-full bg-neutral-800 overflow-hidden">
+                  <div class="skill-bar-fill h-full rounded-full bg-brand-red"></div>
+                </div>
+              </div>
+              <div class="skill-bar" data-percent="90">
+                <div class="flex items-center justify-between text-xs mb-1.5">
+                  <span class="text-neutral-300 font-medium">Photo Manipulation</span>
+                  <span class="skill-bar-value text-neutral-500">0%</span>
+                </div>
+                <div class="h-1.5 rounded-full bg-neutral-800 overflow-hidden">
+                  <div class="skill-bar-fill h-full rounded-full bg-brand-red"></div>
+                </div>
+              </div>
+              <div class="skill-bar" data-percent="88">
+                <div class="flex items-center justify-between text-xs mb-1.5">
+                  <span class="text-neutral-300 font-medium">Motion Graphics</span>
+                  <span class="skill-bar-value text-neutral-500">0%</span>
+                </div>
+                <div class="h-1.5 rounded-full bg-neutral-800 overflow-hidden">
+                  <div class="skill-bar-fill h-full rounded-full bg-brand-red"></div>
+                </div>
+              </div>
+              <div class="skill-bar" data-percent="85">
+                <div class="flex items-center justify-between text-xs mb-1.5">
+                  <span class="text-neutral-300 font-medium">Web Design & Dev</span>
+                  <span class="skill-bar-value text-neutral-500">0%</span>
+                </div>
+                <div class="h-1.5 rounded-full bg-neutral-800 overflow-hidden">
+                  <div class="skill-bar-fill h-full rounded-full bg-brand-red"></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -211,7 +262,7 @@
 
     <!-- ==================== STATS STRIP ==================== -->
     <section aria-label="Career highlights" class="max-w-6xl mx-auto px-6 pb-4">
-      <dl class="card-dark rounded-3xl px-6 py-8 md:py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <dl class="reveal card-dark rounded-3xl px-6 py-8 md:py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
         <div>
           <dt class="sr-only">Years of experience</dt>
           <dd class="text-3xl md:text-5xl font-extrabold text-white"><span class="stat-num" data-target="5">0</span>+</dd>
@@ -235,9 +286,127 @@
       </dl>
     </section>
 
+    <!-- ==================== TOOLKIT ==================== -->
+    <section id="toolkit" class="py-4 pb-20 w-full overflow-hidden">
+      <div class="reveal max-w-6xl mx-auto px-6 mb-8">
+        <p class="kicker text-sm mb-3">Toolkit</p>
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-3">
+          My <span class="text-brand-red">toolkit.</span>
+        </h2>
+        <p class="text-neutral-400 text-sm md:text-base leading-relaxed max-w-xl">
+          The software I reach for daily, across editing, design and code. Hover to pause, or drag to browse.
+        </p>
+      </div>
+
+      <div class="interactive-track overflow-x-auto no-scrollbar w-full flex py-2" data-speed="0.5" role="region" aria-label="Software and tools" tabindex="0">
+        <div class="track-content flex gap-4 px-6 shrink-0">
+          <div class="card-dark rounded-2xl px-5 py-4 shrink-0 flex items-center gap-3 min-w-[190px]">
+            <div class="w-10 h-10 rounded-xl bg-brand-red/15 flex items-center justify-center shrink-0">
+              <i data-lucide="film" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
+            </div>
+            <div class="text-left">
+              <span class="block text-sm font-bold text-white">Premiere Pro</span>
+              <span class="block text-[11px] text-neutral-500">Editing</span>
+            </div>
+          </div>
+
+          <div class="card-dark rounded-2xl px-5 py-4 shrink-0 flex items-center gap-3 min-w-[190px]">
+            <div class="w-10 h-10 rounded-xl bg-brand-red/15 flex items-center justify-center shrink-0">
+              <i data-lucide="sparkles" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
+            </div>
+            <div class="text-left">
+              <span class="block text-sm font-bold text-white">After Effects</span>
+              <span class="block text-[11px] text-neutral-500">Motion graphics</span>
+            </div>
+          </div>
+
+          <div class="card-dark rounded-2xl px-5 py-4 shrink-0 flex items-center gap-3 min-w-[190px]">
+            <div class="w-10 h-10 rounded-xl bg-brand-red/15 flex items-center justify-center shrink-0">
+              <i data-lucide="sliders-horizontal" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
+            </div>
+            <div class="text-left">
+              <span class="block text-sm font-bold text-white">DaVinci Resolve</span>
+              <span class="block text-[11px] text-neutral-500">Color grading</span>
+            </div>
+          </div>
+
+          <div class="card-dark rounded-2xl px-5 py-4 shrink-0 flex items-center gap-3 min-w-[190px]">
+            <div class="w-10 h-10 rounded-xl bg-brand-red/15 flex items-center justify-center shrink-0">
+              <i data-lucide="image" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
+            </div>
+            <div class="text-left">
+              <span class="block text-sm font-bold text-white">Photoshop</span>
+              <span class="block text-[11px] text-neutral-500">Retouching</span>
+            </div>
+          </div>
+
+          <div class="card-dark rounded-2xl px-5 py-4 shrink-0 flex items-center gap-3 min-w-[190px]">
+            <div class="w-10 h-10 rounded-xl bg-brand-red/15 flex items-center justify-center shrink-0">
+              <i data-lucide="pen-tool" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
+            </div>
+            <div class="text-left">
+              <span class="block text-sm font-bold text-white">Illustrator</span>
+              <span class="block text-[11px] text-neutral-500">Vector art</span>
+            </div>
+          </div>
+
+          <div class="card-dark rounded-2xl px-5 py-4 shrink-0 flex items-center gap-3 min-w-[190px]">
+            <div class="w-10 h-10 rounded-xl bg-brand-red/15 flex items-center justify-center shrink-0">
+              <i data-lucide="aperture" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
+            </div>
+            <div class="text-left">
+              <span class="block text-sm font-bold text-white">Lightroom</span>
+              <span class="block text-[11px] text-neutral-500">Photo grading</span>
+            </div>
+          </div>
+
+          <div class="card-dark rounded-2xl px-5 py-4 shrink-0 flex items-center gap-3 min-w-[190px]">
+            <div class="w-10 h-10 rounded-xl bg-brand-red/15 flex items-center justify-center shrink-0">
+              <i data-lucide="figma" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
+            </div>
+            <div class="text-left">
+              <span class="block text-sm font-bold text-white">Figma</span>
+              <span class="block text-[11px] text-neutral-500">UI design</span>
+            </div>
+          </div>
+
+          <div class="card-dark rounded-2xl px-5 py-4 shrink-0 flex items-center gap-3 min-w-[190px]">
+            <div class="w-10 h-10 rounded-xl bg-brand-red/15 flex items-center justify-center shrink-0">
+              <i data-lucide="box" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
+            </div>
+            <div class="text-left">
+              <span class="block text-sm font-bold text-white">Blender</span>
+              <span class="block text-[11px] text-neutral-500">3D</span>
+            </div>
+          </div>
+
+          <div class="card-dark rounded-2xl px-5 py-4 shrink-0 flex items-center gap-3 min-w-[190px]">
+            <div class="w-10 h-10 rounded-xl bg-brand-red/15 flex items-center justify-center shrink-0">
+              <i data-lucide="code-2" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
+            </div>
+            <div class="text-left">
+              <span class="block text-sm font-bold text-white">VS Code</span>
+              <span class="block text-[11px] text-neutral-500">Development</span>
+            </div>
+          </div>
+
+          <div class="card-dark rounded-2xl px-5 py-4 shrink-0 flex items-center gap-3 min-w-[190px]">
+            <div class="w-10 h-10 rounded-xl bg-brand-red/15 flex items-center justify-center shrink-0">
+              <i data-lucide="clipboard-list" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
+            </div>
+            <div class="text-left">
+              <span class="block text-sm font-bold text-white">Notion</span>
+              <span class="block text-[11px] text-neutral-500">Planning</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ==================== SERVICES ==================== -->
-    <section id="services" class="max-w-6xl mx-auto px-6 py-20">
-      <div class="mb-10 max-w-xl">
+    <section id="services" class="max-w-6xl mx-auto px-6 py-24">
+      <div class="reveal mb-10 max-w-xl">
+        <p class="kicker text-sm mb-3">Services</p>
         <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-3">
           What I can <span class="text-brand-red">do for you.</span>
         </h2>
@@ -247,7 +416,7 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <article class="card-dark rounded-2xl p-7 hover:border-brand-red/40 transition">
+        <article class="reveal hover-lift card-dark rounded-2xl p-7" style="transition-delay:0ms">
           <div class="w-11 h-11 rounded-xl bg-brand-red/15 flex items-center justify-center mb-5">
             <i data-lucide="clapperboard" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
           </div>
@@ -262,7 +431,7 @@
           </ul>
         </article>
 
-        <article class="card-dark rounded-2xl p-7 hover:border-brand-red/40 transition">
+        <article class="reveal hover-lift card-dark rounded-2xl p-7" style="transition-delay:120ms">
           <div class="w-11 h-11 rounded-xl bg-brand-red/15 flex items-center justify-center mb-5">
             <i data-lucide="image" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
           </div>
@@ -277,7 +446,7 @@
           </ul>
         </article>
 
-        <article class="card-dark rounded-2xl p-7 hover:border-brand-red/40 transition">
+        <article class="reveal hover-lift card-dark rounded-2xl p-7" style="transition-delay:240ms">
           <div class="w-11 h-11 rounded-xl bg-brand-red/15 flex items-center justify-center mb-5">
             <i data-lucide="globe" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
           </div>
@@ -295,8 +464,9 @@
     </section>
 
     <!-- ==================== PROCESS ==================== -->
-    <section aria-labelledby="process-heading" class="max-w-6xl mx-auto px-6 pb-20">
-      <div class="mb-10 max-w-xl">
+    <section aria-labelledby="process-heading" class="max-w-6xl mx-auto px-6 pb-24">
+      <div class="reveal mb-10 max-w-xl">
+        <p class="kicker text-sm mb-3">Process</p>
         <h2 id="process-heading" class="text-3xl md:text-5xl font-extrabold tracking-tight mb-3">
           How a project <span class="text-brand-red">comes together.</span>
         </h2>
@@ -306,22 +476,22 @@
       </div>
 
       <ol class="grid grid-cols-1 md:grid-cols-4 gap-5">
-        <li class="card-dark rounded-2xl p-6 relative">
+        <li class="reveal hover-lift card-dark rounded-2xl p-6 relative" style="transition-delay:0ms">
           <span class="text-4xl font-black text-brand-red/25">01</span>
           <h3 class="font-bold text-white mt-3 mb-1.5">Discovery call</h3>
           <p class="text-xs text-neutral-400 leading-relaxed">Goals, references and constraints, in a 20-minute call.</p>
         </li>
-        <li class="card-dark rounded-2xl p-6 relative">
+        <li class="reveal hover-lift card-dark rounded-2xl p-6 relative" style="transition-delay:90ms">
           <span class="text-4xl font-black text-brand-red/25">02</span>
           <h3 class="font-bold text-white mt-3 mb-1.5">Draft & direction</h3>
           <p class="text-xs text-neutral-400 leading-relaxed">A first cut or concept for you to react to early, not at the end.</p>
         </li>
-        <li class="card-dark rounded-2xl p-6 relative">
+        <li class="reveal hover-lift card-dark rounded-2xl p-6 relative" style="transition-delay:180ms">
           <span class="text-4xl font-black text-brand-red/25">03</span>
           <h3 class="font-bold text-white mt-3 mb-1.5">Refine together</h3>
           <p class="text-xs text-neutral-400 leading-relaxed">Focused revision rounds until the details feel right.</p>
         </li>
-        <li class="card-dark rounded-2xl p-6 relative">
+        <li class="reveal hover-lift card-dark rounded-2xl p-6 relative" style="transition-delay:270ms">
           <span class="text-4xl font-black text-brand-red/25">04</span>
           <h3 class="font-bold text-white mt-3 mb-1.5">Final delivery</h3>
           <p class="text-xs text-neutral-400 leading-relaxed">Export-ready files, handed off in the formats you need.</p>
@@ -330,9 +500,10 @@
     </section>
 
     <!-- ==================== 3 ROWS INTERACTIVE SHOWCASE ==================== -->
-    <section id="work" class="py-16 w-full overflow-hidden">
-      <div class="max-w-6xl mx-auto px-6 mb-10 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <section id="work" class="py-20 w-full overflow-hidden">
+      <div class="reveal max-w-6xl mx-auto px-6 mb-10 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
+          <p class="kicker text-sm mb-3">Work</p>
           <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Featured Projects</h2>
           <p class="text-neutral-400 text-sm mt-1">Each row scrolls on its own. Hover to pause, or drag and swipe to browse.</p>
         </div>
@@ -483,16 +654,17 @@
     </section>
 
     <!-- ==================== TESTIMONIALS ==================== -->
-    <section id="testimonials" class="py-4 pb-20 w-full overflow-hidden">
-      <div class="max-w-6xl mx-auto px-6 mb-8">
+    <section id="testimonials" class="py-4 pb-24 w-full overflow-hidden">
+      <div class="reveal max-w-6xl mx-auto px-6 mb-8">
+        <p class="kicker text-sm mb-3">Testimonials</p>
         <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Client feedback</h2>
         <p class="text-neutral-400 text-sm mt-1">A few words from people I've worked with. Hover to pause, or drag to browse.</p>
       </div>
 
       <div class="interactive-track overflow-x-auto no-scrollbar w-full flex py-2" data-speed="0.6" role="region" aria-label="Client testimonials" tabindex="0">
         <div class="track-content flex gap-6 px-6 shrink-0">
-          <figure class="w-80 md:w-96 rounded-2xl card-dark shrink-0 p-6 flex flex-col">
-            <i data-lucide="quote" class="w-6 h-6 text-brand-red mb-4" aria-hidden="true"></i>
+          <figure class="hover-lift w-80 md:w-96 rounded-2xl card-dark shrink-0 p-6 flex flex-col">
+            <i data-lucide="quote" class="w-6 h-6 text-brand-gold mb-4" aria-hidden="true"></i>
             <blockquote class="text-sm text-neutral-300 leading-relaxed flex-1">
               Ketharnath turned three days of raw drone footage into a two-minute film that felt like a movie trailer. Fast turnaround and genuinely thoughtful edits.
             </blockquote>
@@ -502,8 +674,8 @@
             </figcaption>
           </figure>
 
-          <figure class="w-80 md:w-96 rounded-2xl card-dark shrink-0 p-6 flex flex-col">
-            <i data-lucide="quote" class="w-6 h-6 text-brand-red mb-4" aria-hidden="true"></i>
+          <figure class="hover-lift w-80 md:w-96 rounded-2xl card-dark shrink-0 p-6 flex flex-col">
+            <i data-lucide="quote" class="w-6 h-6 text-brand-gold mb-4" aria-hidden="true"></i>
             <blockquote class="text-sm text-neutral-300 leading-relaxed flex-1">
               The product retouching work looked shoot-ready straight out of the first pass. Clean masking, honest color — no over-processed look.
             </blockquote>
@@ -513,8 +685,8 @@
             </figcaption>
           </figure>
 
-          <figure class="w-80 md:w-96 rounded-2xl card-dark shrink-0 p-6 flex flex-col">
-            <i data-lucide="quote" class="w-6 h-6 text-brand-red mb-4" aria-hidden="true"></i>
+          <figure class="hover-lift w-80 md:w-96 rounded-2xl card-dark shrink-0 p-6 flex flex-col">
+            <i data-lucide="quote" class="w-6 h-6 text-brand-gold mb-4" aria-hidden="true"></i>
             <blockquote class="text-sm text-neutral-300 leading-relaxed flex-1">
               He rebuilt our storefront with the same eye he brings to video — every section felt intentional, and load times actually improved.
             </blockquote>
@@ -524,8 +696,8 @@
             </figcaption>
           </figure>
 
-          <figure class="w-80 md:w-96 rounded-2xl card-dark shrink-0 p-6 flex flex-col">
-            <i data-lucide="quote" class="w-6 h-6 text-brand-red mb-4" aria-hidden="true"></i>
+          <figure class="hover-lift w-80 md:w-96 rounded-2xl card-dark shrink-0 p-6 flex flex-col">
+            <i data-lucide="quote" class="w-6 h-6 text-brand-gold mb-4" aria-hidden="true"></i>
             <blockquote class="text-sm text-neutral-300 leading-relaxed flex-1">
               Communicative, punctual, and genuinely invested in getting the brand feel right rather than just delivering a generic edit.
             </blockquote>
@@ -538,15 +710,69 @@
       </div>
     </section>
 
+    <!-- ==================== FAQ ==================== -->
+    <section id="faq" class="max-w-4xl mx-auto px-6 py-24">
+      <div class="reveal mb-10">
+        <p class="kicker text-sm mb-3">FAQ</p>
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-3">
+          Frequently <span class="text-brand-red">asked.</span>
+        </h2>
+        <p class="text-neutral-400 text-sm md:text-base">Quick answers before you reach out — anything else, just ask.</p>
+      </div>
+
+      <div class="space-y-3">
+        <details class="faq-item reveal group card-dark rounded-2xl overflow-hidden" style="transition-delay:0ms">
+          <summary class="cursor-pointer list-none px-6 py-5 flex items-center justify-between gap-4 font-semibold text-sm text-white">
+            <span>What's your typical turnaround time?</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-brand-red shrink-0" aria-hidden="true"></i>
+          </summary>
+          <div class="px-6 pb-5 text-sm text-neutral-400 leading-relaxed">
+            Most single video edits ship within 3–5 business days. Larger campaigns, full brand packages or web builds get a clear timeline on the discovery call once scope is set.
+          </div>
+        </details>
+
+        <details class="faq-item reveal group card-dark rounded-2xl overflow-hidden" style="transition-delay:80ms">
+          <summary class="cursor-pointer list-none px-6 py-5 flex items-center justify-between gap-4 font-semibold text-sm text-white">
+            <span>Do you work with clients outside India?</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-brand-red shrink-0" aria-hidden="true"></i>
+          </summary>
+          <div class="px-6 pb-5 text-sm text-neutral-400 leading-relaxed">
+            Yes — everything is remote-friendly. Calls are scheduled around your timezone, and files move through shared drives or direct transfer, whichever you prefer.
+          </div>
+        </details>
+
+        <details class="faq-item reveal group card-dark rounded-2xl overflow-hidden" style="transition-delay:160ms">
+          <summary class="cursor-pointer list-none px-6 py-5 flex items-center justify-between gap-4 font-semibold text-sm text-white">
+            <span>What do I actually receive at the end?</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-brand-red shrink-0" aria-hidden="true"></i>
+          </summary>
+          <div class="px-6 pb-5 text-sm text-neutral-400 leading-relaxed">
+            Export-ready files in the formats you need — MP4/MOV masters for video, layered PSDs or flattened exports for stills, and a deployed or handed-off codebase for web projects.
+          </div>
+        </details>
+
+        <details class="faq-item reveal group card-dark rounded-2xl overflow-hidden" style="transition-delay:240ms">
+          <summary class="cursor-pointer list-none px-6 py-5 flex items-center justify-between gap-4 font-semibold text-sm text-white">
+            <span>How does pricing and payment work?</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-brand-red shrink-0" aria-hidden="true"></i>
+          </summary>
+          <div class="px-6 pb-5 text-sm text-neutral-400 leading-relaxed">
+            Every project is scoped and quoted individually after the discovery call, so pricing reflects the actual work involved rather than a flat rate. A deposit secures the start date, with the balance due on delivery.
+          </div>
+        </details>
+      </div>
+    </section>
+
   </main>
 
   <!-- ==================== FOOTER & CONTACT ==================== -->
   <footer id="contact" class="max-w-5xl mx-auto px-6 pt-10">
-    <div class="card-dark rounded-3xl p-8 md:p-14 border-brand-red/20 relative overflow-hidden text-center md:text-left">
+    <div class="reveal card-dark rounded-3xl p-8 md:p-14 border-brand-red/20 relative overflow-hidden text-center md:text-left">
       <div class="max-w-xl">
+        <p class="kicker text-sm mb-3">Contact</p>
         <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight mb-4">
           Let's build <br />
-          <span class="text-brand-red">something epic together.</span>
+          <span class="text-brand-red">something remarkable together.</span>
         </h2>
         <p class="text-sm text-neutral-400 mb-8 leading-relaxed">
           Available for video editing contracts, branding projects, and full-stack web builds. Feel free to get in touch directly.
@@ -554,10 +780,20 @@
 
         <!-- Direct Social & Email Actions -->
         <div class="flex flex-wrap gap-4 items-center justify-center md:justify-start">
-          <a href="mailto:kethar77@gmail.com" class="bg-brand-red hover:bg-brand-redHover text-white font-semibold text-sm px-7 py-3 rounded-full transition shadow-xl shadow-brand-red/25 flex items-center gap-2">
+          <a href="mailto:kethar77@gmail.com" class="btn-primary text-white font-semibold text-sm px-7 py-3 rounded-full flex items-center gap-2">
             <i data-lucide="mail" class="w-4 h-4" aria-hidden="true"></i>
             <span>kethar77@gmail.com</span>
           </a>
+          <button
+            type="button"
+            id="copy-email-btn"
+            data-email="kethar77@gmail.com"
+            aria-label="Copy email address to clipboard"
+            class="relative card-dark hover:border-brand-red/50 hover:text-white text-neutral-300 w-11 h-11 rounded-full flex items-center justify-center transition shrink-0"
+          >
+            <i data-lucide="copy" class="w-4 h-4" aria-hidden="true"></i>
+            <span id="copy-email-feedback" role="status" aria-live="polite" class="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 text-[11px] bg-white text-black font-semibold px-2.5 py-1 rounded-md whitespace-nowrap">Copied!</span>
+          </button>
           <a href="https://www.instagram.com/kethar_96/" target="_blank" rel="noopener noreferrer" class="card-dark hover:text-white text-neutral-300 font-semibold text-sm px-5 py-3 rounded-full transition flex items-center gap-2">
             <i data-lucide="instagram" class="w-4 h-4 text-pink-500" aria-hidden="true"></i>
             <span>Instagram</span>
@@ -579,7 +815,7 @@
   <aside aria-label="Quick contact" class="fixed bottom-5 inset-x-0 mx-auto w-fit z-50">
     <div class="glass-nav px-5 py-2 rounded-full flex items-center gap-4 shadow-2xl">
       <span class="text-xs text-neutral-300 font-medium hidden sm:inline">Connect with me</span>
-      <a href="mailto:kethar77@gmail.com" class="bg-brand-red hover:bg-brand-redHover text-white text-xs font-semibold px-4 py-1.5 rounded-full transition flex items-center gap-1.5 shadow-md shadow-brand-red/20">
+      <a href="mailto:kethar77@gmail.com" class="btn-primary text-white text-xs font-semibold px-4 py-1.5 rounded-full flex items-center gap-1.5">
         <span>Email me</span>
         <i data-lucide="arrow-up-right" class="w-3.5 h-3.5" aria-hidden="true"></i>
       </a>
