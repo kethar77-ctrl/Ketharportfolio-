@@ -23,6 +23,8 @@
     motion.paused = value;
     if (toggle) toggle.dataset.paused = String(value);
     motionListeners.forEach((fn) => fn());
+    // scene3d.js listens for this so the "Pause motion" button also freezes the WebGL scene
+    document.dispatchEvent(new CustomEvent('portfolio:motion', { detail: { paused: value } }));
   }
 
   if (toggle) {
@@ -434,6 +436,104 @@
       spotlightRaf = requestAnimationFrame(() => moveSpotlight(e));
     });
     heroSection.addEventListener('pointerleave', () => heroSpotlight.classList.remove('is-active'));
+  }
+
+  /* ------------------------------------------------------------------ *
+   * 3D tilt cards: [data-tilt] elements lean toward the pointer (mouse only)
+   * ------------------------------------------------------------------ */
+  const tiltCards = document.querySelectorAll('[data-tilt]');
+  if (tiltCards.length && window.matchMedia('(hover: hover) and (pointer: fine)').matches && !reduceMotion.matches) {
+    const MAX_TILT_DEG = 6;
+    const hovered = new Map(); // cards under the pointer -> their re-measure function
+
+    tiltCards.forEach((card) => {
+      let rect = null;
+      let tiltRaf = 0;
+      const measure = () => { rect = card.getBoundingClientRect(); };
+
+      const reset = () => {
+        cancelAnimationFrame(tiltRaf);
+        rect = null;
+        hovered.delete(card);
+        card.classList.remove('is-tilting');
+        card.style.setProperty('--trx', '0deg');
+        card.style.setProperty('--try', '0deg');
+      };
+
+      card.addEventListener('pointerenter', (e) => {
+        if (e.pointerType !== 'mouse' || motion.paused) return;
+        measure();
+        hovered.set(card, measure);
+        card.classList.add('is-tilting');
+      });
+
+      card.addEventListener('pointermove', (e) => {
+        if (e.pointerType !== 'mouse' || !rect) return;
+        const { clientX, clientY } = e;
+        cancelAnimationFrame(tiltRaf);
+        tiltRaf = requestAnimationFrame(() => {
+          if (!rect) return;
+          const x = (clientX - rect.left) / rect.width;
+          const y = (clientY - rect.top) / rect.height;
+          card.style.setProperty('--try', `${((x - 0.5) * 2 * MAX_TILT_DEG).toFixed(2)}deg`);
+          card.style.setProperty('--trx', `${((0.5 - y) * 2 * MAX_TILT_DEG).toFixed(2)}deg`);
+          card.style.setProperty('--mx', `${(x * 100).toFixed(1)}%`);
+          card.style.setProperty('--my', `${(y * 100).toFixed(1)}%`);
+        });
+      });
+
+      card.addEventListener('pointerleave', reset);
+
+      // The reveal stagger is an inline transition-delay. Once the reveal has finished,
+      // drop it so the card doesn't lag behind the pointer or hang before settling back.
+      card.addEventListener('transitionend', (e) => {
+        if (e.target === card && !e.pseudoElement && e.propertyName === 'opacity') card.style.transitionDelay = '';
+      });
+    });
+
+    // Scrolling while hovering moves the card under a stationary pointer
+    window.addEventListener('scroll', () => {
+      hovered.forEach((measure) => measure());
+    }, { passive: true });
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Extruded headline: the depth direction points away from the cursor,
+   * as if the pointer were the light source (desktop, motion allowed)
+   * ------------------------------------------------------------------ */
+  const title3d = document.querySelector('.title-3d');
+  if (title3d && heroSection && window.matchMedia('(pointer: fine)').matches && !reduceMotion.matches) {
+    const REST_X = 0.55;
+    const REST_Y = 1;
+    let targetX = REST_X;
+    let targetY = REST_Y;
+    let curX = REST_X;
+    let curY = REST_Y;
+    let titleRaf = 0;
+
+    const stepTitle = () => {
+      curX += (targetX - curX) * 0.14;
+      curY += (targetY - curY) * 0.14;
+      title3d.style.setProperty('--dx', curX.toFixed(3));
+      title3d.style.setProperty('--dy', curY.toFixed(3));
+      titleRaf = Math.abs(targetX - curX) + Math.abs(targetY - curY) > 0.003 ? requestAnimationFrame(stepTitle) : 0;
+    };
+    const kick = () => { if (!titleRaf) titleRaf = requestAnimationFrame(stepTitle); };
+
+    heroSection.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse' || motion.paused) return;
+      const r = title3d.getBoundingClientRect();
+      const nx = (e.clientX - (r.left + r.width / 2)) / (window.innerWidth * 0.5);
+      const ny = (e.clientY - (r.top + r.height / 2)) / (window.innerHeight * 0.5);
+      targetX = Math.max(-1, Math.min(1, -nx * 1.2));
+      targetY = Math.max(-1, Math.min(1, -ny * 1.2 + 0.3));
+      kick();
+    });
+    heroSection.addEventListener('pointerleave', () => {
+      targetX = REST_X;
+      targetY = REST_Y;
+      kick();
+    });
   }
 
   /* ------------------------------------------------------------------ *

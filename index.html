@@ -12,6 +12,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='9' fill='%23FF3B30'/%3E%3C/svg%3E" />
 
   <link rel="preconnect" href="https://unpkg.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
@@ -55,6 +56,16 @@
     }
   </script>
 
+  <!-- Three.js (pinned). scene3d.js imports it on demand; if the CDN or WebGL is unavailable the flat portrait stays. -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -63,6 +74,9 @@
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:bg-brand-red focus:text-white focus:text-sm focus:font-semibold focus:px-4 focus:py-2 focus:rounded-full">
     Skip to content
   </a>
+
+  <!-- 3D layer: sits above the hero headline and below everything else (see styles.css) -->
+  <canvas id="scene3d" aria-hidden="true"></canvas>
 
   <!-- ==================== TOP NAVIGATION ==================== -->
   <!-- Scroll progress: fills left-to-right as the page is read -->
@@ -112,7 +126,7 @@
       </div>
 
       <!-- Layered headline + memoji: the bold "CREATIVELY" line sits behind the portrait -->
-      <h1 class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase tracking-tight z-0 leading-[0.82] select-none">
+      <h1 class="title-3d text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase tracking-tight z-0 leading-[0.82] select-none">
         THINK <br />
         <span class="text-brand-red">CREATIVELY</span>
       </h1>
@@ -177,7 +191,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <!-- Photo Container with Bold Red Gradient Background -->
           <div class="lg:col-span-5 flex flex-col items-center">
-            <div class="w-full max-w-sm aspect-[4/5] rounded-2xl overflow-hidden bg-gradient-to-br from-red-600 via-brand-red to-red-950 p-2 shadow-2xl relative border border-white/10 group">
+            <div data-tilt class="tilt-3d w-full max-w-sm aspect-[4/5] rounded-2xl overflow-hidden bg-gradient-to-br from-red-600 via-brand-red to-red-950 p-2 shadow-2xl relative border border-white/10 group">
               <img
                 src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&fit=crop"
                 alt="Portrait of Ketharnath"
@@ -416,11 +430,11 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <article class="reveal hover-lift card-dark rounded-2xl p-7" style="transition-delay:0ms">
-          <div class="w-11 h-11 rounded-xl bg-brand-red/15 flex items-center justify-center mb-5">
+        <article data-tilt class="reveal tilt-3d card-dark rounded-2xl p-7" style="transition-delay:0ms">
+          <div data-depth class="w-11 h-11 rounded-xl bg-brand-red/15 flex items-center justify-center mb-5">
             <i data-lucide="clapperboard" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
           </div>
-          <h3 class="font-bold text-white mb-2">Video editing & SFX</h3>
+          <h3 data-depth class="font-bold text-white mb-2">Video editing & SFX</h3>
           <p class="text-sm text-neutral-400 leading-relaxed mb-4">
             Cinematic reels, ads and social cuts — paced edits, color grading and sound design built to hold attention.
           </p>
@@ -431,11 +445,11 @@
           </ul>
         </article>
 
-        <article class="reveal hover-lift card-dark rounded-2xl p-7" style="transition-delay:120ms">
-          <div class="w-11 h-11 rounded-xl bg-brand-red/15 flex items-center justify-center mb-5">
+        <article data-tilt class="reveal tilt-3d card-dark rounded-2xl p-7" style="transition-delay:120ms">
+          <div data-depth class="w-11 h-11 rounded-xl bg-brand-red/15 flex items-center justify-center mb-5">
             <i data-lucide="image" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
           </div>
-          <h3 class="font-bold text-white mb-2">Photo manipulation</h3>
+          <h3 data-depth class="font-bold text-white mb-2">Photo manipulation</h3>
           <p class="text-sm text-neutral-400 leading-relaxed mb-4">
             Retouching, compositing and matte painting that keeps light, shadow and grain believable at any scale.
           </p>
@@ -446,11 +460,11 @@
           </ul>
         </article>
 
-        <article class="reveal hover-lift card-dark rounded-2xl p-7" style="transition-delay:240ms">
-          <div class="w-11 h-11 rounded-xl bg-brand-red/15 flex items-center justify-center mb-5">
+        <article data-tilt class="reveal tilt-3d card-dark rounded-2xl p-7" style="transition-delay:240ms">
+          <div data-depth class="w-11 h-11 rounded-xl bg-brand-red/15 flex items-center justify-center mb-5">
             <i data-lucide="globe" class="w-5 h-5 text-brand-red" aria-hidden="true"></i>
           </div>
-          <h3 class="font-bold text-white mb-2">Web design & build</h3>
+          <h3 data-depth class="font-bold text-white mb-2">Web design & build</h3>
           <p class="text-sm text-neutral-400 leading-relaxed mb-4">
             Interactive, responsive sites that carry the same visual polish from the poster into the browser.
           </p>
@@ -476,23 +490,23 @@
       </div>
 
       <ol class="grid grid-cols-1 md:grid-cols-4 gap-5">
-        <li class="reveal hover-lift card-dark rounded-2xl p-6 relative" style="transition-delay:0ms">
-          <span class="text-4xl font-black text-brand-red/25">01</span>
+        <li data-tilt class="reveal tilt-3d card-dark rounded-2xl p-6 relative" style="transition-delay:0ms">
+          <span data-depth class="block text-4xl font-black text-brand-red/25">01</span>
           <h3 class="font-bold text-white mt-3 mb-1.5">Discovery call</h3>
           <p class="text-xs text-neutral-400 leading-relaxed">Goals, references and constraints, in a 20-minute call.</p>
         </li>
-        <li class="reveal hover-lift card-dark rounded-2xl p-6 relative" style="transition-delay:90ms">
-          <span class="text-4xl font-black text-brand-red/25">02</span>
+        <li data-tilt class="reveal tilt-3d card-dark rounded-2xl p-6 relative" style="transition-delay:90ms">
+          <span data-depth class="block text-4xl font-black text-brand-red/25">02</span>
           <h3 class="font-bold text-white mt-3 mb-1.5">Draft & direction</h3>
           <p class="text-xs text-neutral-400 leading-relaxed">A first cut or concept for you to react to early, not at the end.</p>
         </li>
-        <li class="reveal hover-lift card-dark rounded-2xl p-6 relative" style="transition-delay:180ms">
-          <span class="text-4xl font-black text-brand-red/25">03</span>
+        <li data-tilt class="reveal tilt-3d card-dark rounded-2xl p-6 relative" style="transition-delay:180ms">
+          <span data-depth class="block text-4xl font-black text-brand-red/25">03</span>
           <h3 class="font-bold text-white mt-3 mb-1.5">Refine together</h3>
           <p class="text-xs text-neutral-400 leading-relaxed">Focused revision rounds until the details feel right.</p>
         </li>
-        <li class="reveal hover-lift card-dark rounded-2xl p-6 relative" style="transition-delay:270ms">
-          <span class="text-4xl font-black text-brand-red/25">04</span>
+        <li data-tilt class="reveal tilt-3d card-dark rounded-2xl p-6 relative" style="transition-delay:270ms">
+          <span data-depth class="block text-4xl font-black text-brand-red/25">04</span>
           <h3 class="font-bold text-white mt-3 mb-1.5">Final delivery</h3>
           <p class="text-xs text-neutral-400 leading-relaxed">Export-ready files, handed off in the formats you need.</p>
         </li>
@@ -834,5 +848,6 @@
   </button>
 
   <script src="script.js" defer></script>
+  <script src="scene3d.js" defer></script>
 </body>
 </html>
